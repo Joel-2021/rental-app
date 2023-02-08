@@ -1,9 +1,15 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { TextField, Button, Input, FormControl } from "@mui/material";
-import { useFormState, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { UploadFile } from "@mui/icons-material";
 
+const style={ 
+  width: { sm: '200', md: '200', xs:'100' },
+  "& .MuiInputBase-root": {
+    // height: '80'
+}
+}
 export default function Form(props) {
   const {
     register,
@@ -25,7 +31,7 @@ export default function Form(props) {
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
     >
-        <TextField
+        <TextField sx={style}
           label="Name of Property"
           size="small"
           error={errors.propertyName ? true : false}
@@ -33,8 +39,9 @@ export default function Form(props) {
           {...register("propertyName", {
             required: true,
           })}
+          padding='100px'
         />
-        <TextField
+        <TextField sx={style}
           label="BHK"
           type="number"
           size="small"
@@ -44,7 +51,7 @@ export default function Form(props) {
             required: true,
           })}
         />
-        <TextField
+        <TextField sx={style}
           label="Address"
           type="text"
           size="small"
@@ -54,7 +61,7 @@ export default function Form(props) {
             required: true,
           })}
         />
-        <TextField
+        <TextField sx={style}
           label="Name of Tenant"
           size="small"
           required
@@ -63,7 +70,16 @@ export default function Form(props) {
             required: true,
           })}
           />
-        <TextField
+        <TextField sx={style}
+          label="email"
+          size="small"
+          required
+          error={errors.email ? true : false}
+          {...register("email", {
+            required: true,
+          })}
+          />
+        <TextField sx={style}
           label="Age"
           type="number"
           size="small"
@@ -73,7 +89,7 @@ export default function Form(props) {
             required: true,
           })}
         />
-        <TextField
+        <TextField sx={style}
           label="Phone Number"
           type="number"
           size="small"
@@ -83,7 +99,7 @@ export default function Form(props) {
             required: true,
           })}
           />
-        <TextField
+        <TextField sx={style}
           label="Rent"
           type="number"
           size="small"
@@ -93,7 +109,7 @@ export default function Form(props) {
             required: true,
           })}
         />
-        <TextField
+        <TextField sx={style}
           label="Rent Date"
           InputLabelProps={{ shrink: true }}
           type="date"
@@ -104,7 +120,7 @@ export default function Form(props) {
             required: true,
           })}
         />
-        <TextField
+        <TextField sx={style}
           label="AADHAR Number"
           type="Number"
           size="small"

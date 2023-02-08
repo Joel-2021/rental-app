@@ -7,39 +7,42 @@ import {
   CardMedia,
   Button,
   Typography,
+  Alert,
 } from "@mui/material";
 import React from "react";
 
 const PropertyDetail = () => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, backgroundColor: "#B6EADA", boxShadow: "none" }}>
       <CardMedia
         sx={{ height: 140 }}
-        image={require('../assets/img.jpg')}
+        image={require("../assets/img.jpg")}
         title="Friends Villa A1"
       />
       <CardContent>
         <CardHeader title="Friends Villa" subheader="2BHK" />
-        <div style={{display:'flex'}}>
-        <LocationOn/>
-        <Typography variant="subtitle2">
-         ward no 18
-        </Typography>
+        <div style={{ display: "flex" }}>
+          <LocationOn />
+          <Typography variant="subtitle2">ward no 18</Typography>
         </div>
       </CardContent>
       <CardActions>
         <Button
-        variant="outlined"
+          variant="outlined"
           sx={{
+            color: "white",
+            bgcolor: "#03001c",
             ":hover": {
-              bgcolor: "primary.main",
-              color: "white",
+              bgcolor: "white",
+              color: "#03001c",
             },
           }}
         >
           Details
         </Button>
       </CardActions>
+      <Alert severity="error">Rent not paid</Alert>
+      <Alert severity="warning">Rent is due</Alert>
     </Card>
   );
 };
