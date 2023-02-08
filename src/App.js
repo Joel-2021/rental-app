@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Header from './components/Header';
+import PropertyList from './components/PropertyList';
+import TenantsList from './components/TenantsList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [page,setPage]=useState('Property')
+  function handlePage(page){
+setPage(page)
+console.log(page)
+  }
+  return <>
+<Header handlePage={handlePage} active={page}/>
+{page==='Property' ? <PropertyList/> : <TenantsList/>}
+  </>
 }
 
 export default App;
