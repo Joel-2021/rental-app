@@ -20,6 +20,7 @@ export default function Form(props) {
   function onSubmit(data, e) {
     e.preventDefault();
     console.log(data)
+   props.onClose()
   }
   return (
     <Box

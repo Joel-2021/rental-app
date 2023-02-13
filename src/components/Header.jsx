@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   AppBar,
   Box,
@@ -13,33 +13,48 @@ import {
   Tooltip,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import axios from "axios";
+import AuthContext from "../Context";
+const URL="http://127.0.0.1:8000/auth/logout/"
+
 const Header = (props) => {
+  const {Logout}= useContext(AuthContext)
   //dark SKy 5B8FB9
   //Navy 301E67
-  const pages = ["Property", "Tenants"];
-  const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const logout = () => {
+    fetch(URL, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+        Logout()
+        } else {
+          throw new Error('Logout failed');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+  };
+  
   return (
-    <AppBar position="static" style={{ background: "#03001c" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="static" style={{ background: "#03001c",display:'flex',justifyContent:'space-around' }}>
+      <Container maxWidth="xl" >
+        <Toolbar style={{display:'flex',justifyContent:'space-between' }} disableGutters>
           <Typography
             variant="h6"
             noWrap
@@ -56,45 +71,6 @@ const Header = (props) => {
             Property Manager
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={() => {
-                    props.handlePage(page);
-                    setAnchorElNav(null);
-                  }}
-                >
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
           <Typography
             variant="h5"
             noWrap
@@ -113,59 +89,9 @@ const Header = (props) => {
           >
             Property Manager
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Typography
-                key={page}
-                onClick={() => {
-                  props.handlePage(page);
-                  setAnchorElNav(null);
-                }}
-                color={props.active === page ? "#B6EADA" : "white"}
-                sx={{
-                  my: 2,
-                  display: "block",
-                  "&:hover": {
-                    color: "#B6EADA",
-                    cursor: "pointer",
-                  },
-                  paddingLeft: "1rem",
-                }}
-              >
-                {page}
-              </Typography>
-            ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <Button color="error" variant="contained" onClick={logout}>
+        Log Out
+      </Button>
         </Toolbar>
       </Container>
     </AppBar>
