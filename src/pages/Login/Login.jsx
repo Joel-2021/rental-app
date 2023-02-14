@@ -32,6 +32,7 @@ const Login = () => {
     try {
       const response = await fetch(URL, {
         method: "POST",
+        credentials:'include',
         headers: {
           "Content-Type": "application/json",
         },
@@ -39,6 +40,7 @@ const Login = () => {
       });
       if (response.ok) {
         Login();
+        console.log(response)
         console.log("loggedIN");
       } else {
         alert("Wrong username or password");
@@ -47,6 +49,23 @@ const Login = () => {
     } catch (error) {
       console.log(error.message);
     }
+
+    fetch("http://127.0.0.1:8000/property/user_property/", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+       console.log(response)
+        } else {
+          throw new Error('Logout failed');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   return (
     <Container
