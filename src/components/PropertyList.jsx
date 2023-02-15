@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, {useEffect} from 'react'; 
 import PropertyDetail from './PropertyDetail';
 import { Button, Container,Box,Grid,Typography } from '@mui/material';
 import Modal from './Modal'
+
 
 export default function PropertyList() {
   return (

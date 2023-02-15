@@ -47,13 +47,24 @@ const SignUp = () => {
       },
       body: JSON.stringify(postdata),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        alert(data.message)
+      .then((response) => 
+      {
+      if (response.status === 201) {
+        console.log('User registered successfully!');
+        return response.json();
+      } else if (response.status === 400) {
+        console.log('Bad request. Please fill in all the required fields');
+      } else if (response.status === 409) {
+        console.log('Conflict. User with that email or username already exists');
+      } else {
+        console.log('An error occurred while registering the user');
+      }
+      // response.json()
+    }).then(data => {
+        console.log(data);
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch(error => {
+        console.error(error);
       });
     reset();
   };

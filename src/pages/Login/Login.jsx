@@ -6,13 +6,14 @@ import {
   InputAdornment,
   Typography,
   IconButton,
-  Alert
+  Alert,
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useForm } from "react-hook-form";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Context";
+import axios from "axios";
 
 const Login = () => {
   const URL = "http://127.0.0.1:8000/auth/login/";
@@ -32,7 +33,7 @@ const Login = () => {
     try {
       const response = await fetch(URL, {
         method: "POST",
-        credentials:'include',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,8 +41,8 @@ const Login = () => {
       });
       if (response.ok) {
         Login();
-        console.log(response)
-        console.log("loggedIN");
+        console.log(response);
+        console.log("loggedIN")
       } else {
         alert("Wrong username or password");
         console.log("Invalid Email or password");
@@ -49,23 +50,6 @@ const Login = () => {
     } catch (error) {
       console.log(error.message);
     }
-
-    fetch("http://127.0.0.1:8000/property/user_property/", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-       console.log(response)
-        } else {
-          throw new Error('Logout failed');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
   };
   return (
     <Container
@@ -106,7 +90,9 @@ const Login = () => {
             }}
             {...register("password", { required: true, minLength: 6 })}
             error={errors.password ? true : false}
-            helperText={errors.password && "Password length should be more than 5"}
+            helperText={
+              errors.password && "Password length should be more than 5"
+            }
             variant="standard"
           />
           <Button
