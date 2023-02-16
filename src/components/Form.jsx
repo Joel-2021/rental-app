@@ -17,23 +17,38 @@ const style = {
 };
 
 const inputProperty = async (data) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = fetch("http://127.0.0.1:8000/property/post_property/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // include token in Authorization header
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        console.log("Added ");
-      }
-    } catch (error) {
+  const formData = new FormData();
+  formData.append("property_name", data.property_name);
+  formData.append("tenant_name", data.tenant_name);
+  formData.append("age", data.age);
+  formData.append("rent", data.rent);
+  formData.append("address", data.address);
+  formData.append("email", data.email);
+  formData.append("bhk", data.bhk);
+  formData.append("phone_number", data.phone_number);
+  formData.append("adhar_num", data.adhar_num);
+  formData.append("adhar_pic", data.adhar_pic[0]);
+  formData.append("property_pic", data.property_pic[0]);
+
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch("http://127.0.0.1:8000/property/post_property/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`, // include token in Authorization header
+      },
+      body: formData,
+    });
+
+    if (response.ok) {
+      console.log("Property added successfully");
+    } else {
+      const error = await response.json();
       console.log(error);
     }
-  console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default function Form(props) {
@@ -172,7 +187,7 @@ export default function Form(props) {
           maxLength: 12,
         })}
       />
-      {/* <div className="upload">
+      <div className="upload">
         <Button
           startIcon={<UploadFile />}
           component="label"
@@ -181,7 +196,7 @@ export default function Form(props) {
           Aadhar image{" "}
           <input
             type="file"
-            accept="image"
+            accept="image/*"
             hidden
             {...register("adhar_pic", {
               required: true,
@@ -196,14 +211,14 @@ export default function Form(props) {
           property image{" "}
           <input
             type="file"
-            accept="image"
+            accept="image/*"
             hidden
             {...register("property_pic", {
               required: true,
             })}
           />
         </Button>
-      </div> */}
+      </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Button color="success" variant="contained" type="submit">
           Add
