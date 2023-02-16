@@ -30,26 +30,29 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const logout = () => {
-    fetch(URL, {
-      method: 'GET',
+const access=localStorage.getItem('token')
+const logout = async () => {
+  try {
+    const token = localStorage.getItem("token"); // get token from localStorage
+    const response = await fetch(URL, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}` // include token in Authorization header
       },
-    })
-      .then(response => {
-        if (response.ok) {
-        Logout()
-        } else {
-          throw new Error('Logout failed');
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    });
+    if (response.ok) {
+      Logout()
+      localStorage.removeItem("token"); // remove token from localStorage
+      console.log("Logged out successfully");
+    } else {
+      console.log("Logout failed");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
-  };
   
   return (
     <AppBar position="static" style={{ background: "#03001c",display:'flex',justifyContent:'space-around' }}>

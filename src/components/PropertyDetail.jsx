@@ -11,19 +11,19 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const PropertyDetail = () => {
+const PropertyDetail = (props) => {
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#B6EADA", boxShadow: "none" }}>
       <CardMedia
         sx={{ height: 140 }}
-        image={require("../assets/img.jpg")}
-        title="Friends Villa A1"
+        image={props.pic}
+        title={props.name}
       />
       <CardContent>
-        <CardHeader title="Friends Villa" subheader="2BHK" />
+        <CardHeader title={props.name} subheader={`${props.bhk}BHK`} />
         <div style={{ display: "flex" }}>
           <LocationOn />
-          <Typography variant="subtitle2">ward no 18</Typography>
+          <Typography variant="subtitle2">{props.address}</Typography>
         </div>
       </CardContent>
       <CardActions>

@@ -29,24 +29,25 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit =async (data) => {
     try {
-      const response = await fetch(URL, {
+      const response=await fetch(URL, {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        Login();
-        console.log(response);
-        console.log("loggedIN")
-      } else {
-        alert("Wrong username or password");
-        console.log("Invalid Email or password");
-      }
+      })
+        if (response.ok) {
+          const jsonData = await response.json(); // parse response body as JSON
+          Login();
+          let token =jsonData.Token.access
+          localStorage.setItem("token",token)
+          console.log("loggedIN");
+        } else {
+          alert("Wrong username or password");
+          console.log("Invalid Email or password");
+        }
     } catch (error) {
       console.log(error.message);
     }

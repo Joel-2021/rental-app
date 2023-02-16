@@ -59,7 +59,6 @@ const SignUp = () => {
       } else {
         console.log('An error occurred while registering the user');
       }
-      // response.json()
     }).then(data => {
         console.log(data);
       })
