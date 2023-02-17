@@ -10,9 +10,12 @@ import {
   Alert,
 } from "@mui/material";
 import React from "react";
+import Details from "../pages/Details/Details";
 import { FetchProperty } from "../Fetch/FetchData";
+import { useNavigate } from "react-router-dom";
 
 const PropertyDetail = (props) => {
+  const navigate=useNavigate()
   return (
     <Card sx={{ maxWidth: 345, backgroundColor: "#B6EADA", boxShadow: "none" }}>
       <CardMedia
@@ -38,7 +41,7 @@ const PropertyDetail = (props) => {
               color: "#03001c",
             },
           }}
-          onClick={()=>FetchProperty(props.id)}
+          onClick={()=>navigate(`/home/${props.id}`)}
         >
           Details
         </Button>

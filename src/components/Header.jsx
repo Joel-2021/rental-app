@@ -15,21 +15,14 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import axios from "axios";
 import AuthContext from "../Context";
+import { useNavigate } from "react-router-dom";
 const URL="http://127.0.0.1:8000/auth/logout/"
 
 const Header = (props) => {
+  const navigate=useNavigate()
   const {Logout}= useContext(AuthContext)
   //dark SKy 5B8FB9
   //Navy 301E67
-  const [anchorElUser, setAnchorElUser] = useState(null);
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 const access=localStorage.getItem('token')
 const logout = async () => {
   try {
@@ -70,6 +63,7 @@ const logout = async () => {
               color: "#B6EADA",
               textDecoration: "none",
             }}
+            onClick={()=>navigate('/home')}
           >
             Property Manager
           </Typography>

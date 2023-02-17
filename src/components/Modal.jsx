@@ -4,18 +4,6 @@ import {Button,Slide} from '@mui/material';
 import {Dialog,DialogContent,DialogTitle} from '@mui/material';
 import Form from './Form'
 
-const style = {
-  overflow:'scroll',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '50%',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-};
-
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });

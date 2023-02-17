@@ -40,7 +40,7 @@ export default function Form(props) {
         sx={style}
         label="Name of Property"
         size="small"
-        error={errors.propertyName ? true : false}
+        error={errors.property_name ? true : false}
         required
         {...register("property_name", {
           required: true,
@@ -52,7 +52,7 @@ export default function Form(props) {
         label="BHK"
         type="number"
         size="small"
-        error={errors.BHK ? true : false}
+        error={errors.bhk ? true : false}
         required
         {...register("bhk", {
           required: true,
@@ -74,7 +74,7 @@ export default function Form(props) {
         label="Name of Tenant"
         size="small"
         required
-        error={errors.tenantName ? true : false}
+        error={errors.tenant_name ? true : false}
         {...register("tenant_name", {
           required: true,
         })}
@@ -106,7 +106,7 @@ export default function Form(props) {
         type="number"
         size="small"
         required
-        error={errors.phoneNo ? true : false}
+        error={errors.phone_number ? true : false}
         {...register("phone_number", {
           required: true,
           minLength: 10,
@@ -130,7 +130,7 @@ export default function Form(props) {
         InputLabelProps={{ shrink: true }}
         type="date"
         size="small"
-        error={errors.rentDate ? true : false}
+        error={errors.rent_date ? true : false}
         required
         {...register("rent_date", {
           required: true,
@@ -142,7 +142,7 @@ export default function Form(props) {
         type="Number"
         size="small"
         required
-        error={errors.aadharNo ? true : false}
+        error={errors.adhar_num ? true : false}
         {...register("adhar_num", {
           required: true,
           minLength: 12,

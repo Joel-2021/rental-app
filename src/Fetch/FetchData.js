@@ -12,6 +12,7 @@ export const inputProperty = async (data,add) => {
   formData.append("tenant_name", data.tenant_name);
   formData.append("age", data.age);
   formData.append("rent", data.rent);
+  formData.append("rent_date", data.rent_date);
   formData.append("address", data.address);
   formData.append("email", data.email);
   formData.append("bhk", data.bhk);
@@ -29,7 +30,6 @@ export const inputProperty = async (data,add) => {
       body: formData,
     });
     if (response.ok) {
-        add()
       console.log("Property added successfully");
     } else {
       const error = await response.json();
@@ -69,7 +69,8 @@ export const FetchProperty= async (id) => {
     });
     if (response.ok) {
       const jsonData = await response.json();
-      console.log(jsonData);
+      console.log(jsonData)
+      return jsonData;
     }
   } catch (error) {
     console.log(error.message);
