@@ -4,7 +4,6 @@ const AuthContext = createContext();
 export const AuthContextProvider = (props) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
     if (!isLoggedIn) navigate("/");

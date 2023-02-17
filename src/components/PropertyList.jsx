@@ -1,30 +1,13 @@
-import React, {useEffect,useState} from 'react'; 
+import React, {useEffect,useState,useContext} from 'react'; 
 import PropertyDetail from './PropertyDetail';
 import { Button, Container,Box,Grid,Typography } from '@mui/material';
 import Modal from './Modal'
+import AuthContext from '../Context';
+import { FetchPropertyList } from '../Fetch/FetchData';
 
-const URL="http://127.0.0.1:8000/property/user_property/"
-const FetchPropertyList=async()=>{
-  try {
-    const token=localStorage.getItem("token")
-    const response= await fetch(URL,{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // include token in Authorization header
-      },
-    })
-    if(response.ok){
-      const jsonData=await response.json()
-      return (jsonData.property)
-    }
-  } catch (error) {
-    console.log(error.message)
-  }
-}
 
 export default function PropertyList() {
-
+  
   const[properties,setProperties]=useState([])
 
   useEffect(()=>{
@@ -37,7 +20,6 @@ export default function PropertyList() {
         console.log(error.message);
       }
     };
-
     fetchProperties();
   },[])
 
@@ -57,6 +39,7 @@ export default function PropertyList() {
          address={property.address}
          bhk={property.bhk}
          pic={property.property_pic}
+         id={property.id}
          />
           </Grid> 
         ))}

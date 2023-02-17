@@ -1,14 +1,10 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
-import {
-  TextField,
-  Button,
-  Input,
-  FormControl,
-} from "@mui/material";
+import { TextField, Button, Input, FormControl } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { UploadFile } from "@mui/icons-material";
-
+import { inputProperty } from "../Fetch/FetchData";
+import AuthContext from "../Context";
 const style = {
   width: { sm: "200", md: "200", xs: "100" },
   "& .MuiInputBase-root": {
@@ -16,42 +12,8 @@ const style = {
   },
 };
 
-const inputProperty = async (data) => {
-  const formData = new FormData();
-  formData.append("property_name", data.property_name);
-  formData.append("tenant_name", data.tenant_name);
-  formData.append("age", data.age);
-  formData.append("rent", data.rent);
-  formData.append("address", data.address);
-  formData.append("email", data.email);
-  formData.append("bhk", data.bhk);
-  formData.append("phone_number", data.phone_number);
-  formData.append("adhar_num", data.adhar_num);
-  formData.append("adhar_pic", data.adhar_pic[0]);
-  formData.append("property_pic", data.property_pic[0]);
-
-  try {
-    const token = localStorage.getItem("token");
-    const response = await fetch("http://127.0.0.1:8000/property/post_property/", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`, // include token in Authorization header
-      },
-      body: formData,
-    });
-
-    if (response.ok) {
-      console.log("Property added successfully");
-    } else {
-      const error = await response.json();
-      console.log(error);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export default function Form(props) {
+
   const {
     register,
     handleSubmit,
@@ -60,10 +22,10 @@ export default function Form(props) {
 
   function onSubmit(data, e) {
     e.preventDefault();
-    // console.log(data)
     inputProperty(data);
     props.onClose();
   }
+
   return (
     <Box
       component="form"

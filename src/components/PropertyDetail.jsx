@@ -10,6 +10,7 @@ import {
   Alert,
 } from "@mui/material";
 import React from "react";
+import { FetchProperty } from "../Fetch/FetchData";
 
 const PropertyDetail = (props) => {
   return (
@@ -37,12 +38,13 @@ const PropertyDetail = (props) => {
               color: "#03001c",
             },
           }}
+          onClick={()=>FetchProperty(props.id)}
         >
           Details
         </Button>
       </CardActions>
-      <Alert severity="error">Rent not paid</Alert>
-      <Alert severity="warning">Rent is due</Alert>
+      {/* <Alert severity="error">Rent not paid</Alert>
+      <Alert severity="warning">Rent is due</Alert> */}
     </Card>
   );
 };
