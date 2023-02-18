@@ -7,6 +7,8 @@ import {
   Typography,
   IconButton,
   Alert,
+  Box,
+  Grid
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useForm } from "react-hook-form";
@@ -54,18 +56,45 @@ const Login = () => {
   };
   return (
     <Container
-      style={{
+    maxWidth="500px"
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+    }}
+  >
+    <Box
+      sx={{
+        marginTop: 4,
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <Typography variant="h4" align="center" gutterBottom marginTop="5%">
-        Login
+      <Typography
+        align="center"
+        gutterBottom
+        marginTop="5%"
+        component="h1"
+        variant="h5"
+        style={{
+          fontWeight: "600",
+          fontFamily: "Arial ",
+        }}
+      >
+        Welcome to <span style={{ color: "blue" }}>Rental Application,</span>
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl>
+      <Typography align="center"
+          gutterBottom
+          marginTop="5%"
+          variant="h6"
+          style={{
+            fontWeight: "600",
+            fontFamily: "Arial ",
+          }}>Login</Typography>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
+        <FormControl style={{ width: "100%" }}>
           <TextField
             placeholder="Email"
             {...register("email", {
@@ -74,7 +103,7 @@ const Login = () => {
             })}
             error={errors.email ? true : false}
             helperText={errors.email && "Enter Valid Email"}
-            variant="standard"
+            style={{ paddingBottom: "16px" }}
           />
           <TextField
             type={showPassword ? "text" : "password"}
@@ -94,27 +123,108 @@ const Login = () => {
             helperText={
               errors.password && "Password length should be more than 5"
             }
-            variant="standard"
           />
-          <Button
-            variant="contained"
-            color="success"
-            style={{ margin: "5%" }}
-            type="submit"
-          >
+          <Button variant="contained" sx={{ mt: 3, mb: 2 }} type="submit">
             Login
           </Button>
         </FormControl>
       </form>
-      <p
-        onClick={() => {
-          navigate("/signup");
+      <Grid
+        container
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "10px",
         }}
-        style={{ textAlign: "center", cursor: "pointer", color: "red" }}
       >
-        Sign In?
-      </p>
-    </Container>
+        <Grid
+          item
+          variant="body2"
+          style={{
+            fontSize: "15px",
+            fontWeight: "600",
+            fontFamily: "Helvetica",
+          }}
+        >
+          Don't have an account?{" "}
+          <span
+            onClick={() => {
+              navigate("/signup");
+            }}
+            style={{
+              color: "blue",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+          >
+            Sign Up
+          </span>
+        </Grid>
+      </Grid>
+    </Box>
+  </Container>
+    // <Container
+    //   style={{
+    //     display: "flex",
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     flexDirection: "column",
+    //   }}
+    // >
+    //   <Typography variant="h4" align="center" gutterBottom marginTop="5%">
+    //     Login
+    //   </Typography>
+    //   <form onSubmit={handleSubmit(onSubmit)}>
+    //     <FormControl>
+    //       <TextField
+    //         placeholder="Email"
+    //         {...register("email", {
+    //           required: true,
+    //           pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+    //         })}
+    //         error={errors.email ? true : false}
+    //         helperText={errors.email && "Enter Valid Email"}
+    //         variant="standard"
+    //       />
+    //       <TextField
+    //         type={showPassword ? "text" : "password"}
+    //         required
+    //         InputProps={{
+    //           endAdornment: (
+    //             <InputAdornment position="end">
+    //               <IconButton onClick={handleClickShowPassword} edge="end">
+    //                 {showPassword ? <VisibilityOff /> : <Visibility />}
+    //               </IconButton>
+    //             </InputAdornment>
+    //           ),
+    //           placeholder: "Password",
+    //         }}
+    //         {...register("password", { required: true, minLength: 6 })}
+    //         error={errors.password ? true : false}
+    //         helperText={
+    //           errors.password && "Password length should be more than 5"
+    //         }
+    //         variant="standard"
+    //       />
+    //       <Button
+    //         variant="contained"
+    //         color="success"
+    //         style={{ margin: "5%" }}
+    //         type="submit"
+    //       >
+    //         Login
+    //       </Button>
+    //     </FormControl>
+    //   </form>
+    //   <p
+    //     onClick={() => {
+    //       navigate("/signup");
+    //     }}
+    //     style={{ textAlign: "center", cursor: "pointer", color: "red" }}
+    //   >
+    //     Sign In?
+    //   </p>
+    // </Container>
   );
 };
 
