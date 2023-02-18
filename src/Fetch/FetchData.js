@@ -6,7 +6,7 @@ const list_URL = "http://127.0.0.1:8000/property/user_property/";
 const property_URL="http://127.0.0.1:8000/property/list/";
 
 
-export const inputProperty = async (data,add) => {
+export const inputProperty = async (data,Added) => {
   const formData = new FormData();
   formData.append("property_name", data.property_name);
   formData.append("tenant_name", data.tenant_name);
@@ -31,6 +31,7 @@ export const inputProperty = async (data,add) => {
     });
     if (response.ok) {
       console.log("Property added successfully");
+      Added()
     } else {
       const error = await response.json();
       console.log(error);

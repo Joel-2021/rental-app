@@ -13,7 +13,7 @@ const style = {
 };
 
 export default function Form(props) {
-
+const {Added}=useContext(AuthContext)
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ export default function Form(props) {
 
   function onSubmit(data, e) {
     e.preventDefault();
-    inputProperty(data);
+    inputProperty(data,Added);
     props.onClose();
   }
 

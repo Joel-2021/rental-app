@@ -4,6 +4,7 @@ const AuthContext = createContext();
 export const AuthContextProvider = (props) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isAdded,setIsAdded]=useState(false)
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
     if (!isLoggedIn) navigate("/");
@@ -16,13 +17,20 @@ export const AuthContextProvider = (props) => {
   function Logout() {
     setIsLoggedIn(false);
   }
-
+  function Added(){
+    setIsAdded(true)
+    setTimeout(()=>{
+      setIsAdded(false)
+    },3000)
+  }
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn,
         Login,
         Logout,
+        Added,
+        isAdded,
       }}
     >
       {props.children}
