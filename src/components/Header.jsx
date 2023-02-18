@@ -1,19 +1,11 @@
 import React, { useContext, useState } from "react";
 import {
   AppBar,
-  Box,
-  IconButton,
   Toolbar,
   Typography,
-  Menu,
   Container,
   Button,
-  Avatar,
-  MenuItem,
-  Tooltip,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import axios from "axios";
 import AuthContext from "../Context";
 import { useNavigate } from "react-router-dom";
 const URL="http://127.0.0.1:8000/auth/logout/"

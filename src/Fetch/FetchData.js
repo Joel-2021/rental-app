@@ -1,6 +1,6 @@
 
 
-const token = localStorage.getItem("token");
+
 const post_URL = "http://127.0.0.1:8000/property/post_property/";
 const list_URL = "http://127.0.0.1:8000/property/user_property/";
 const property_URL="http://127.0.0.1:8000/property/list/";
@@ -22,6 +22,7 @@ export const inputProperty = async (data,Added) => {
   formData.append("property_pic", data.property_pic[0]);
 
   try {
+    const token = localStorage.getItem("token");
     const response = await fetch(post_URL, {
       method: "POST",
       headers: {
@@ -41,9 +42,9 @@ export const inputProperty = async (data,Added) => {
   }
 };
 
-
 export const FetchPropertyList = async () => {
   try {
+    const token = localStorage.getItem("token");
     const response = await fetch(list_URL, {
       method: "GET",
       headers: {
@@ -59,8 +60,10 @@ export const FetchPropertyList = async () => {
     console.log(error.message);
   }
 };
+
 export const FetchProperty= async (id) => {
   try {
+    const token = localStorage.getItem("token");
     const response = await fetch(property_URL+id, {
       method: "GET",
       headers: {
