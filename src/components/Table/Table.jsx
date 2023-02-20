@@ -9,7 +9,6 @@ import {
   TableCell,
   TableContainer,
   TablePagination,
-  TableFooter,
   TableRow,
   Paper,
   IconButton,
