@@ -3,7 +3,7 @@ import { FetchProperty } from "../../Fetch/FetchData";
 import { Container, InputLabel, Typography, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { LocationOn } from "@mui/icons-material";
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 const Details = () => {
   const [detail, setDetail] = useState({});
   let { id } = useParams();

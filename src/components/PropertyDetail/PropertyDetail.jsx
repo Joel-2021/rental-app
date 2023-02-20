@@ -10,8 +10,8 @@ import {
   Alert,
 } from "@mui/material";
 import React from "react";
-import Details from "../pages/Details/Details";
-import { FetchProperty } from "../Fetch/FetchData";
+import Details from "../../pages/Details/Details";
+import { FetchProperty } from "../../Fetch/FetchData";
 import { useNavigate } from "react-router-dom";
 
 const PropertyDetail = (props) => {

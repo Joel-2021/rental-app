@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Button,Slide} from '@mui/material';
-
+import { Add } from "@mui/icons-material";
 import {Dialog,DialogContent,DialogTitle} from '@mui/material';
 import Form from './Form'
 
@@ -26,7 +26,12 @@ import Form from './Form'
               bgcolor: "primary.main",
               color: "white",
             },
-          }}>Add Property</Button>
+            width: { xs: "80px",lg:'150px' }, 
+            height:{xs:"30px",lg:'40px'},
+            fontSize:{xs:'10px',lg:'13px'}
+          }}
+          startIcon={<Add/>}>
+            Add Property</Button>
       <Dialog
 open={open}
 TransitionComponent={Transition}

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
+import './Table.css'
 import {
   Box,
   Table,
@@ -130,12 +131,12 @@ export default function PropertyTable(props) {
     return filter;
   };
   return (
-    <TableContainer component={Paper}>
+    <>
       <TextField
         type="string"
         inputRef={search_ref}
         placeholder="Search Property Name or Tenant Name or Phone Number"
-        style={{ width: "100%" }}
+        style={{ width: "100%",margin:'0 0 10px 0' }}
         onChange={() => {
           setFilteredData(filterData(search_ref.current.value));
         }}
@@ -147,10 +148,18 @@ export default function PropertyTable(props) {
           ),
         }}
       />
-      {/* {console.log(filteredData)} */}
-      <Table sx={{ minWidth: 500 }}>
-        <TableHead>
-          <TableRow>
+    <TableContainer component={Paper}  style={{overflow: 'auto'}}>
+      
+      <Table 
+     
+    size= {window.innerWidth<400 ? "small":""} >
+        <TableHead  >
+          <TableRow  sx={{
+            "& th": {
+        color: "rgba(96, 96, 96)",
+        fontWeight:'600',
+      }
+    }}>
             <TableCell>ID</TableCell>
             <TableCell align="right">Property Name</TableCell>
             <TableCell align="right">Tenant Name</TableCell>
@@ -176,13 +185,14 @@ export default function PropertyTable(props) {
               sx={{
                 "&:hover": {
                   cursor: "pointer",
+                  backgroundColor:'#FFFAEB'
                 },
               }}
             >
               <TableCell component="th" scope="row" style={{ width: 10 }}>
                 {data.id}
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell style={{ width:{xs:'10px',lg:'160px'  }}} align="right">
                 {data.property_name}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
@@ -214,11 +224,12 @@ export default function PropertyTable(props) {
             </TableRow>
           )}
         </TableBody>
-        <TableFooter style={{ width: "100%" }}>
-          <TableRow>
+        </Table>
+        <Box sx={{display:'flex',justifyContent:'center'}}>
+
             <TablePagination
               rowsPerPageOptions={[10, 15, 25, { label: "All", value: -1 }]}
-              colSpan={3}
+              colSpan={1}
               count={filteredData.length}
               rowsPerPage={rowsPerPage}
               page={page}
@@ -228,10 +239,9 @@ export default function PropertyTable(props) {
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
               ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
+              />
+              </Box>
     </TableContainer>
+        </>
   );
 }
