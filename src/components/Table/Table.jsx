@@ -185,7 +185,7 @@ export default function PropertyTable(props) {
               sx={{
                 "&:hover": {
                   cursor: "pointer",
-                  backgroundColor:'#FFFAEB'
+                  backgroundColor:'#E4E8F3'
                 },
               }}
             >
