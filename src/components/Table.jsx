@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import {
@@ -13,17 +13,19 @@ import {
   Paper,
   IconButton,
   TableHead,
+  TextField,
+  InputAdornment,
 } from "@mui/material";
 import {
   FirstPage,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   LastPage,
+  Search,
 } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 function TablePaginationActions(props) {
- 
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
 
@@ -93,9 +95,15 @@ TablePaginationActions.propTypes = {
 };
 
 export default function PropertyTable(props) {
-    const navigate=useNavigate()
+  const search_ref = useRef();
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    setFilteredData(props.data);
+  }, [props.data]);
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -110,10 +118,36 @@ export default function PropertyTable(props) {
     setPage(0);
   };
 
-  console.log(props.data);
-
+  const filterData = (search) => {
+    // console.log(search);
+    const filter = props.data?.filter((data) => {
+      return (
+        data.property_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.tenant_name.toLowerCase().includes(search.toLowerCase()) ||
+        data.phone_number.includes(search) 
+      );
+    });
+    return filter;
+  };
   return (
     <TableContainer component={Paper}>
+      <TextField
+        type="string"
+        inputRef={search_ref}
+        placeholder="Search Property Name or Tenant Name or Phone Number"
+        style={{ width: "100%" }}
+        onChange={() => {
+          setFilteredData(filterData(search_ref.current.value));
+        }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
+      />
+      {/* {console.log(filteredData)} */}
       <Table sx={{ minWidth: 500 }}>
         <TableHead>
           <TableRow>
@@ -130,42 +164,44 @@ export default function PropertyTable(props) {
 
         <TableBody>
           {(rowsPerPage > 0
-            ? props.data.slice(
+            ? filteredData?.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
-            : props.data
-          ).map((prop) => (
+            : filteredData
+          ).map((data) => (
             <TableRow
-              key={prop.id}
-              onClick={() =>navigate(`/home/${prop.id}`)}
-              style={{"&:hover":{
-                'cursor':'pointer'
-              }}}
+              key={data.id}
+              onClick={() => navigate(`/home/${data.id}`)}
+              sx={{
+                "&:hover": {
+                  cursor: "pointer",
+                },
+              }}
             >
               <TableCell component="th" scope="row" style={{ width: 10 }}>
-                {prop.id}
+                {data.id}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {prop.property_name}
+                {data.property_name}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {prop.tenant_name}
+                {data.tenant_name}
               </TableCell>
               <TableCell style={{ width: 10 }} align="right">
-                {prop.bhk}
+                {data.bhk}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {prop.rent}
+                {data.rent}
               </TableCell>
               <TableCell style={{ width: 100 }} align="right">
-                {prop.rent_date}
+                {data.rent_date}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {prop.phone_number}
+                {data.phone_number}
               </TableCell>
               <TableCell style={{ width: 100 }} align="right">
-                <a target="_blank" rel="noreferrer" href={prop.adhar_pic}>
+                <a target="_blank" rel="noreferrer" href={data.adhar_pic}>
                   click
                 </a>
               </TableCell>
@@ -178,12 +214,12 @@ export default function PropertyTable(props) {
             </TableRow>
           )}
         </TableBody>
-        <TableFooter style={{width:'100%'}}>
-          <TableRow >
+        <TableFooter style={{ width: "100%" }}>
+          <TableRow>
             <TablePagination
               rowsPerPageOptions={[10, 15, 25, { label: "All", value: -1 }]}
               colSpan={3}
-              count={props.data.length}
+              count={filteredData.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{

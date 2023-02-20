@@ -14,7 +14,6 @@ export default function PropertyList() {
       try {
         const properties = await FetchPropertyList();
         setProperties(properties);
-        console.log(properties);
       } catch (error) {
         console.log(error.message);
       }
