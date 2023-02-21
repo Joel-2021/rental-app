@@ -163,68 +163,6 @@ const Login = () => {
       </Grid>
     </Box>
   </Container>
-    // <Container
-    //   style={{
-    //     display: "flex",
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     flexDirection: "column",
-    //   }}
-    // >
-    //   <Typography variant="h4" align="center" gutterBottom marginTop="5%">
-    //     Login
-    //   </Typography>
-    //   <form onSubmit={handleSubmit(onSubmit)}>
-    //     <FormControl>
-    //       <TextField
-    //         placeholder="Email"
-    //         {...register("email", {
-    //           required: true,
-    //           pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-    //         })}
-    //         error={errors.email ? true : false}
-    //         helperText={errors.email && "Enter Valid Email"}
-    //         variant="standard"
-    //       />
-    //       <TextField
-    //         type={showPassword ? "text" : "password"}
-    //         required
-    //         InputProps={{
-    //           endAdornment: (
-    //             <InputAdornment position="end">
-    //               <IconButton onClick={handleClickShowPassword} edge="end">
-    //                 {showPassword ? <VisibilityOff /> : <Visibility />}
-    //               </IconButton>
-    //             </InputAdornment>
-    //           ),
-    //           placeholder: "Password",
-    //         }}
-    //         {...register("password", { required: true, minLength: 6 })}
-    //         error={errors.password ? true : false}
-    //         helperText={
-    //           errors.password && "Password length should be more than 5"
-    //         }
-    //         variant="standard"
-    //       />
-    //       <Button
-    //         variant="contained"
-    //         color="success"
-    //         style={{ margin: "5%" }}
-    //         type="submit"
-    //       >
-    //         Login
-    //       </Button>
-    //     </FormControl>
-    //   </form>
-    //   <p
-    //     onClick={() => {
-    //       navigate("/signup");
-    //     }}
-    //     style={{ textAlign: "center", cursor: "pointer", color: "red" }}
-    //   >
-    //     Sign In?
-    //   </p>
-    // </Container>
   );
 };
 

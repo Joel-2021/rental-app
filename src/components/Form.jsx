@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import Box from "@mui/material/Box";
-import { TextField, Button, Input, FormControl } from "@mui/material";
+import { TextField, Button, IconButton } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { UploadFile } from "@mui/icons-material";
-import { inputProperty } from "../Fetch/FetchData";
+import { DocumentScanner, UploadFile } from "@mui/icons-material";
+import { inputProperty,UploadExcel } from "../Fetch/FetchData";
 import AuthContext from "../Context";
 const style = {
   width: { sm: "200", md: "200", xs: "100" },
@@ -13,7 +13,7 @@ const style = {
 };
 
 export default function Form(props) {
-const {Added}=useContext(AuthContext)
+  const { Added } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -22,10 +22,11 @@ const {Added}=useContext(AuthContext)
 
   function onSubmit(data, e) {
     e.preventDefault();
-    inputProperty(data,Added);
+    inputProperty(data, Added);
     props.onClose();
   }
 
+  
   return (
     <Box
       component="form"
@@ -84,10 +85,7 @@ const {Added}=useContext(AuthContext)
         label="email"
         size="small"
         required
-        error={errors.email ? true : false}
-        {...register("email", {
-          required: true,
-        })}
+        {...register("email")}
       />
       <TextField
         sx={style}
@@ -151,7 +149,7 @@ const {Added}=useContext(AuthContext)
       />
       <div className="upload">
         <Button
-          startIcon={<UploadFile />}
+          startIcon={<DocumentScanner />}
           component="label"
           color={errors.adhar_pic && "error"}
         >
@@ -166,7 +164,7 @@ const {Added}=useContext(AuthContext)
           />
         </Button>
         <Button
-          startIcon={<UploadFile />}
+          startIcon={<DocumentScanner />}
           component="label"
           color={errors.property_pic ? "error" : "primary"}
         >

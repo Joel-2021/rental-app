@@ -1,12 +1,10 @@
-
-
-
+import axios from "axios";
 const post_URL = "http://127.0.0.1:8000/property/post_property/";
 const list_URL = "http://127.0.0.1:8000/property/user_property/";
-const property_URL="http://127.0.0.1:8000/property/list/";
+const property_URL = "http://127.0.0.1:8000/property/list/";
+const Upload_URL = "http://127.0.0.1:8000/property/uploadexcel/";
 
-
-export const inputProperty = async (data,Added) => {
+export const inputProperty = async (data, Added) => {
   const formData = new FormData();
   formData.append("property_name", data.property_name);
   formData.append("tenant_name", data.tenant_name);
@@ -32,7 +30,7 @@ export const inputProperty = async (data,Added) => {
     });
     if (response.ok) {
       console.log("Property added successfully");
-      Added()
+      Added();
     } else {
       const error = await response.json();
       console.log(error);
@@ -61,10 +59,10 @@ export const FetchPropertyList = async () => {
   }
 };
 
-export const FetchProperty= async (id) => {
+export const FetchProperty = async (id) => {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch(property_URL+id, {
+    const response = await fetch(property_URL + id, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -73,10 +71,35 @@ export const FetchProperty= async (id) => {
     });
     if (response.ok) {
       const jsonData = await response.json();
-      console.log(jsonData)
+      console.log(jsonData);
       return jsonData;
     }
   } catch (error) {
     console.log(error.message);
   }
 };
+
+export const UploadExcel = async (file, Added) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  try {
+    const token = localStorage.getItem("token");
+    const response =await fetch(Upload_URL,{
+      method:'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body:formData
+    })
+    if (response.ok) {
+     alert("Property added successfully");
+      Added();
+    } else {
+      const error = await response.json();
+      alert(error);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+

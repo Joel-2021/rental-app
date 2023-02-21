@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import AuthContext from "../Context";
 import { FetchPropertyList } from "../Fetch/FetchData";
 import Table from "./Table/Table";
+import ExportFile from './ExportFile'
 import { Container, Typography } from "@mui/material";
 
 export default function PropertyList() {
@@ -31,7 +32,10 @@ export default function PropertyList() {
         }}
       >
         <Typography variant="h6" color='rgba(96, 96, 96)'>Your Properties</Typography>
+        <div style={{display:'flex',justifyContent:'space-between'}}>
         <Modal />
+        <ExportFile/>
+        </div>
       </div>
       <Table data={memoizedData} />
     </Container>
