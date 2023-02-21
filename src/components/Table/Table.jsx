@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
-import './Table.css'
+import "./Table.css";
 import {
   Box,
   Table,
@@ -25,6 +25,7 @@ import {
 } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
+
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
@@ -95,11 +96,11 @@ TablePaginationActions.propTypes = {
 };
 
 export default function PropertyTable(props) {
-  const search_ref = useRef();
   const navigate = useNavigate();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [filteredData, setFilteredData] = useState([]);
+  const search_ref = useRef();
 
   useEffect(() => {
     setFilteredData(props.data);
@@ -107,7 +108,7 @@ export default function PropertyTable(props) {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - props.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -119,23 +120,23 @@ export default function PropertyTable(props) {
   };
 
   const filterData = (search) => {
-    // console.log(search);
     const filter = props.data?.filter((data) => {
       return (
         data.property_name.toLowerCase().includes(search.toLowerCase()) ||
         data.tenant_name.toLowerCase().includes(search.toLowerCase()) ||
-        data.phone_number.includes(search) 
+        data.phone_number.includes(search)
       );
     });
     return filter;
   };
+
   return (
     <>
       <TextField
         type="string"
         inputRef={search_ref}
         placeholder="Search Property Name or Tenant Name or Phone Number"
-        style={{ width: "100%",margin:'0 0 10px 0' }}
+        style={{ width: "100%", margin: "0 0 10px 0" }}
         onChange={() => {
           setFilteredData(filterData(search_ref.current.value));
         }}
@@ -147,100 +148,100 @@ export default function PropertyTable(props) {
           ),
         }}
       />
-    <TableContainer component={Paper}  style={{overflow: 'auto'}}>
-      
-      <Table 
-     
-    size= {window.innerWidth<400 ? "small":""} >
-        <TableHead  >
-          <TableRow  sx={{
-            "& th": {
-        color: "rgba(96, 96, 96)",
-        fontWeight:'600',
-      }
-    }}>
-            <TableCell>ID</TableCell>
-            <TableCell align="right">Property Name</TableCell>
-            <TableCell align="right">Tenant Name</TableCell>
-            <TableCell align="right">BHK</TableCell>
-            <TableCell align="right">Rent</TableCell>
-            <TableCell align="right">Rent Date</TableCell>
-            <TableCell align="right">Phone Number</TableCell>
-            <TableCell align="right">View Proof</TableCell>
-          </TableRow>
-        </TableHead>
-
-        <TableBody>
-          {(rowsPerPage > 0
-            ? filteredData?.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-            : filteredData
-          ).map((data) => (
+      <TableContainer component={Paper} style={{ overflow: "auto" }}>
+        <Table size={window.innerWidth < 400 ? "small" : ""}>
+          <TableHead>
             <TableRow
-              key={data.id}
-              onClick={() => navigate(`/home/${data.id}`)}
               sx={{
-                "&:hover": {
-                  cursor: "pointer",
-                  backgroundColor:'#E4E8F3'
+                "& th": {
+                  color: "rgba(96, 96, 96)",
+                  fontWeight: "600",
                 },
               }}
             >
-              <TableCell component="th" scope="row" style={{ width: 10 }}>
-                {data.id}
-              </TableCell>
-              <TableCell style={{ width:{xs:'10px',lg:'160px'  }}} align="right">
-                {data.property_name}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {data.tenant_name}
-              </TableCell>
-              <TableCell style={{ width: 10 }} align="right">
-                {data.bhk}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {data.rent}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                {data.rent_date}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {data.phone_number}
-              </TableCell>
-              <TableCell style={{ width: 100 }} align="right">
-                <a target="_blank" rel="noreferrer" href={data.adhar_pic}>
-                  click
-                </a>
-              </TableCell>
+              <TableCell>ID</TableCell>
+              <TableCell align="right">Property Name</TableCell>
+              <TableCell align="right">Tenant Name</TableCell>
+              <TableCell align="right">BHK</TableCell>
+              <TableCell align="right">Rent</TableCell>
+              <TableCell align="right">Rent Date</TableCell>
+              <TableCell align="right">Phone Number</TableCell>
+              <TableCell align="right">View Proof</TableCell>
             </TableRow>
-          ))}
+          </TableHead>
+          <TableBody>
+            {(rowsPerPage > 0
+              ? filteredData.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )
+              : filteredData
+            ).map((data) => (
+              <TableRow
+                key={data.id}
+                onClick={() => navigate(`/home/${data.id}`)}
+                sx={{
+                  "&:hover": {
+                    cursor: "pointer",
+                    backgroundColor: "#E4E8F3",
+                  },
+                }}
+              >
+                <TableCell component="th" scope="row" style={{ width: 10 }}>
+                  {data.id}
+                </TableCell>
+                <TableCell
+                  style={{ width: { xs: "10px", lg: "160px" } }}
+                  align="right"
+                >
+                  {data.property_name}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="right">
+                  {data.tenant_name}
+                </TableCell>
+                <TableCell style={{ width: 10 }} align="right">
+                  {data.bhk}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="right">
+                  {data.rent}
+                </TableCell>
+                <TableCell style={{ width: 100 }} align="right">
+                  {data.rent_date}
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="right">
+                  {data.phone_number}
+                </TableCell>
+                <TableCell style={{ width: 100 }} align="right">
+                  <a target="_blank" rel="noreferrer" href={data.adhar_pic}>
+                    click
+                  </a>
+                </TableCell>
+              </TableRow>
+            ))}
 
-          {emptyRows > 0 && (
-            <TableRow style={{ height: 53 * emptyRows }}>
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
         </Table>
-        <Box sx={{display:'flex',justifyContent:'center'}}>
-
-            <TablePagination
-              rowsPerPageOptions={[10, 15, 25, { label: "All", value: -1 }]}
-              colSpan={1}
-              count={filteredData.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                native: true,
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationActions}
-              />
-              </Box>
-    </TableContainer>
-        </>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+            colSpan={3}
+            count={filteredData?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            SelectProps={{
+              native: true,
+            }}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            ActionsComponent={TablePaginationActions}
+          />
+        </Box>
+      </TableContainer>
+    </>
   );
 }
