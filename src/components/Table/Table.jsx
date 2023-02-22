@@ -97,8 +97,8 @@ TablePaginationActions.propTypes = {
 
 export default function PropertyTable(props) {
   const navigate = useNavigate();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [filteredData, setFilteredData] = useState([]);
   const search_ref = useRef();
 

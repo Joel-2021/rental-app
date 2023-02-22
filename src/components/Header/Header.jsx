@@ -97,10 +97,11 @@ const Header = (props) => {
               width: { xs: "80px",lg:'100px' }, 
               height:{xs:"30px",lg:'40px'},
               fontSize:{xs:'10px',lg:'13px'},
+              backgroundColor:"#f87575",
               "&:hover":{
-                color:'#537FE7',
+                color:'#f87575',
                 background:'white',
-                border:'1px solid #537FE7'
+                border:'1px solid #f87575'
               }
             }}
             

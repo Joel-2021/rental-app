@@ -1,8 +1,9 @@
-import React, { useEffect, useState,useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { FetchProperty } from "../../Fetch/FetchData";
-import { Container, InputLabel, Typography, Grid } from "@mui/material";
+import { Box, Paper, Typography, Grid, Button } from "@mui/material";
+import { createTheme, styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
-import { LocationOn } from "@mui/icons-material";
+import { LocationOn, WhatsApp } from "@mui/icons-material";
 import Header from "../../components/Header/Header";
 const Details = () => {
   const [detail, setDetail] = useState({});
@@ -19,75 +20,160 @@ const Details = () => {
     fetchdetails();
   }, [id]);
 
-  const memoizedDetail=useMemo(() => detail, [detail])
+  const memoizedDetail = useMemo(() => detail, [detail]);
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  }));
+
   return (
     <>
       <Header />
-      <Container
-        style={{
-          display: "flex",
-          padding: "10px 20px",
-          justifyContent: "space-around",
-        }}
-      >
-        <div className="left">
-          <img src={memoizedDetail.property_pic} width={400} height={400} />
-        </div>
-        <div className="right" style={{padding:"10px"}}>
-          <Typography variant="h3" gutterBottom padding="10px">{detail.property_name}</Typography>
-      
-          <Grid
-            container
-            columns={{ xs: 1, sm: 4, md: 8 }}
-          >
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Type:</InputLabel>
-              <span>{memoizedDetail?.bhk}BHK</span>
+      <Box width="80%" m="80px auto" sx={{ overflow: "hidden" }}>
+        <Box display="flex" flexWrap="wrap" columnGap="40px">
+          {/* IMAGES */}
+          <Box flex="1 1 40%" mb="40px">
+            <img
+              src={memoizedDetail?.property_pic}
+              alt={memoizedDetail.property_name}
+              width="100%"
+              height="100%"
+              style={{ objectFit: "cover" }}
+            />
+            {/* <Box sx={{ width: "100%" }}>
+            <Grid
+              container
+              rowSpacing={1}
+              columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+            >
+              <Grid item xs={6}>
+                <Item>
+                  <img
+                    src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*2X75k4WUxJUztgad.jpg"
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    style={{ objectFit: "contain" }}
+                  />
+                </Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item>
+                  <img
+                    src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*2X75k4WUxJUztgad.jpg"
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    style={{ objectFit: "contain" }}
+                  />
+                </Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item>
+                  <img
+                    src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*2X75k4WUxJUztgad.jpg"
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    style={{ objectFit: "contain" }}
+                  />
+                </Item>
+              </Grid>
+              <Grid item xs={6}>
+                <Item>
+                  <img
+                    src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*2X75k4WUxJUztgad.jpg"
+                    alt=""
+                    width="100%"
+                    height="100%"
+                    style={{ objectFit: "contain" }}
+                  />
+                </Item>
+              </Grid>
             </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Address:</InputLabel>
-              <span>{memoizedDetail?.address}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Tenant Name:</InputLabel>
-              <span>{memoizedDetail?.tenant_name}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Phone Number:</InputLabel>
-              <span>{memoizedDetail?.phone_number}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Email:</InputLabel>
-              <span>{memoizedDetail?.email}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Age:</InputLabel>
-              <span>{memoizedDetail?.age}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Rent:</InputLabel>
-              <span>{memoizedDetail?.rent}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Rent Date:</InputLabel>
-              <span>{memoizedDetail?.rent_date}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Aadhar Num:</InputLabel>
-              <span>{memoizedDetail?.adhar_num}</span>
-            </Grid>
-            <Grid xs={2} sm={4} md={4}>
-              <InputLabel>Adhar Card:</InputLabel>
-              <span>
-                <a target="_blank" rel="noreferrer" href={memoizedDetail?.adhar_pic}>
-                  {" "}
-                  AAdhar doc
+          </Box> */}
+          </Box>
+          {/* PROPERTY INFO */}
+          <Box flex="1 1 50%" mb="40px">
+            <Box>
+              <Typography
+                variant="h6"
+                style={{
+                  fontFamily: "Poppins, san-serif",
+                  color: "#537FE7",
+                  fontWeight: "600",
+                }}
+                textTransform={'capitalize'}
+              >
+                {memoizedDetail.property_name}
+              </Typography>
+              <Typography variant="subtitle2" textTransform={'capitalize'}>
+                Address: {memoizedDetail.address}
+              </Typography>
+              <Typography variant="subtitle2">
+                Rent: {memoizedDetail.rent}
+              </Typography>
+              <Typography variant="subtitle2">
+                Rent Date: {memoizedDetail.rent_date}
+              </Typography>
+              <Typography variant="subtitle2">
+                Property Type: {memoizedDetail.bhk} BHK
+              </Typography>
+            </Box>
+            {/* TENANT INFO */}
+            <Box m="15px 0 25px 0">
+              <Typography variant="h6" fontFamily={"Roboto, san-serif"}>
+                Tenant Info
+              </Typography>
+                
+              <Typography variant="subtitle2" textTransform={'capitalize'}  >
+                Name : {memoizedDetail.tenant_name}
+              </Typography>
+              <Typography variant="subtitle2">
+                Email : {memoizedDetail?.email}
+              </Typography>
+              <Typography variant="subtitle2">
+                Phone :{memoizedDetail.phone_number}{" "}
+              </Typography>
+              <Typography variant="subtitle2">
+                Age : {memoizedDetail.age}
+              </Typography>
+              <Typography variant="subtitle2">
+                Adharcard Number : {memoizedDetail.adhar_num}
+              </Typography>
+              <Typography variant="subtitle2">
+                Adharcard Document :{" "}
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={memoizedDetail.adhar_pic}
+                >
+                  Click here
                 </a>
-              </span>
-            </Grid>
-          </Grid>
-        </div>
-      </Container>
+              </Typography>
+            </Box>
+
+            <Box display="flex" alignItems="center" minHeight="50px">
+              <Button
+                color="success"
+                variant="contained"
+                startIcon={<WhatsApp />}
+                sx={{
+                  borderRadius: 0,
+                  minWidth: "100px",
+                  padding: "10px 40px",
+                  // width: "100%",
+                }}
+              >
+                Contact on WhatsApp
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };

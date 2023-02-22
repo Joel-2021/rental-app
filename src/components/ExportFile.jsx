@@ -1,7 +1,7 @@
 import React, { useState,useContext } from "react";
 import { Button, Slide } from "@mui/material";
 import { Add, UploadFile } from "@mui/icons-material";
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle,Typography } from "@mui/material";
 import { UploadExcel } from "../Fetch/FetchData";
 import AuthContext from "../Context";
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -54,9 +54,9 @@ export default function AlertDialogSlide() {
       >
         <DialogTitle>Export from excel file</DialogTitle>
         <DialogContent style={{ textAlign: "center" }}>
-          Select a .xls , .csv file
-          <form onSubmit={fileSubmit} style={{display:'flex'}}>
-            <Button startIcon={<UploadFile />} component="label">
+          <Typography variant="subtitle2" gutterBottom> Select a .xls , .csv file </Typography>
+          <form onSubmit={fileSubmit} style={{display:'flex',flexDirection:'column'}}>
+            <Button startIcon={<UploadFile />} component="label" style={{margin:'10px'}}>
               Export Excel{" "}
               <input
                 type="file"
