@@ -4,7 +4,8 @@ const AuthContext = createContext();
 export const AuthContextProvider = (props) => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [isAdded,setIsAdded]=useState(false)
+  const [isAdded,setIsAdded]=useState(null)
+  const [isDeleted,setIsDeleted]=useState(null)
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
     if (!isLoggedIn) navigate("/");
@@ -20,7 +21,13 @@ export const AuthContextProvider = (props) => {
   function Added(){
     setIsAdded(true)
     setTimeout(()=>{
-      setIsAdded(false)
+      setIsAdded(null)
+    },3000)
+  }
+  function Deleted(){
+    setIsDeleted(true)
+    setTimeout(()=>{
+      setIsDeleted(null)
     },3000)
   }
   return (
@@ -30,7 +37,9 @@ export const AuthContextProvider = (props) => {
         Login,
         Logout,
         Added,
+        Deleted,
         isAdded,
+        isDeleted
       }}
     >
       {props.children}

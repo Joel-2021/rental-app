@@ -1,11 +1,20 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { FetchProperty } from "../../Fetch/FetchData";
-import { Box, Paper, Typography, Grid, Button } from "@mui/material";
+import React, { useEffect, useState, useMemo, useContext } from "react";
+import { DeleteProperty, FetchProperty, UpdateProperty } from "../../Fetch/FetchData";
+import {
+  Box,
+  Paper,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
-import { useParams } from "react-router-dom";
-import { LocationOn, WhatsApp } from "@mui/icons-material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Delete, Edit, LocationOn, WhatsApp } from "@mui/icons-material";
 import Header from "../../components/Header/Header";
+import AuthContext from "../../Context";
 const Details = () => {
+  const navigate=useNavigate()
+  const {Deleted}=useContext(AuthContext)
   const [detail, setDetail] = useState({});
   let { id } = useParams();
   useEffect(() => {
@@ -29,6 +38,14 @@ const Details = () => {
     color: theme.palette.text.secondary,
   }));
 
+  const handleDelete = () => {
+    DeleteProperty(id,Deleted);
+    navigate('/home')
+  };
+  const handleUpdate = (memoizedDetail) => {
+    UpdateProperty(id,memoizedDetail)
+    // navigate('/home')
+  };
   return (
     <>
       <Header />
@@ -99,18 +116,29 @@ const Details = () => {
           {/* PROPERTY INFO */}
           <Box flex="1 1 50%" mb="40px">
             <Box>
-              <Typography
-                variant="h6"
-                style={{
-                  fontFamily: "Poppins, san-serif",
-                  color: "#537FE7",
-                  fontWeight: "600",
-                }}
-                textTransform={'capitalize'}
-              >
-                {memoizedDetail.property_name}
-              </Typography>
-              <Typography variant="subtitle2" textTransform={'capitalize'}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography
+                  variant="h6"
+                  style={{
+                    fontFamily: "Poppins, san-serif",
+                    color: "#537FE7",
+                    fontWeight: "600",
+                  }}
+                  textTransform={"capitalize"}
+                >
+                  {memoizedDetail.property_name}
+                </Typography>
+                <div>
+
+                <IconButton onClick={handleUpdate}>
+                  <Edit/>
+                </IconButton>
+                <IconButton onClick={handleDelete}>
+                  <Delete />
+                </IconButton>
+                </div>
+              </div>
+              <Typography variant="subtitle2" textTransform={"capitalize"}>
                 Address: {memoizedDetail.address}
               </Typography>
               <Typography variant="subtitle2">
@@ -128,8 +156,8 @@ const Details = () => {
               <Typography variant="h6" fontFamily={"Roboto, san-serif"}>
                 Tenant Info
               </Typography>
-                
-              <Typography variant="subtitle2" textTransform={'capitalize'}  >
+
+              <Typography variant="subtitle2" textTransform={"capitalize"}>
                 Name : {memoizedDetail.tenant_name}
               </Typography>
               <Typography variant="subtitle2">
