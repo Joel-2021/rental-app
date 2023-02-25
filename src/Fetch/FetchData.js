@@ -128,31 +128,37 @@ export const DeleteProperty = async (id,Deleted) => {
   }
 };
 
-export const UpdateProperty = async (id,data) => {
+export const UpdateProperty = async (id,data,Updated) => {
   try {
+  //   const formData = new FormData();
+  // formData.append("property_name", data.property_name);
+  // formData.append("tenant_name", data.tenant_name);
+  // formData.append("age", data.age);
+  // formData.append("rent", data.rent);
+  // formData.append("rent_date", data.rent_date);
+  // formData.append("address", data.address);
+  // formData.append("email", data.email);
+  // formData.append("bhk", data.bhk);
+  // formData.append("phone_number", data.phone_number);
+  // formData.append("adhar_num", data.adhar_num);
+  // formData.append("adhar_pic", data.adhar_pic[0]);
+  // formData.append("property_pic", data.property_pic[0]);
+
+
+
+    console.log(JSON.stringify(data))
+  
     const token = localStorage.getItem("token");
-    const formData=new FormData()
-    // formData.append('property_name',data.property_name)
-    // formData.append('tenant_name',data.tenant_name)
-    // formData.append('age',data.age)
-    // formData.append('rent',data.rent)
-    // formData.append('bhk',data.bhk)
-    // formData.append('address',data.address)
-    // formData.append('adhar_pic',data.adhar_pic)
-    // formData.append('property_pic',data.property_pic)
-    // formData.append('phone_number',data.phone_number)
-    // formData.append('adhar_num',data.adhar_num)
-    // formData.append('rent_date',data.rent_date)
-    formData.append('tenant_name','New Property')
     const response = await fetch(update_URL + id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // include token in Authorization header
+        Authorization: `Bearer ${token}`,
       },
-      body:formData
+      body:JSON.stringify(data)
     });
     if (response.ok) {
+      Updated()
       const jsonData = await response.json();
       console.log(jsonData);
       return jsonData;
@@ -161,3 +167,4 @@ export const UpdateProperty = async (id,data) => {
     console.log(error.message);
   }
 };
+

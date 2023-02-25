@@ -1,9 +1,9 @@
-import React, { useContext,useState } from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
-import { TextField, Button, IconButton } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { DocumentScanner, UploadFile } from "@mui/icons-material";
-import { inputProperty,UploadExcel } from "../Fetch/FetchData";
+import { DocumentScanner} from "@mui/icons-material";
+import { inputProperty} from "../Fetch/FetchData";
 import AuthContext from "../Context";
 const style = {
   width: { sm: "200", md: "200", xs: "100" },

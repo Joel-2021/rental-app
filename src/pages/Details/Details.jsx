@@ -6,15 +6,18 @@ import {
   Typography,
   Button,
   IconButton,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import { createTheme, styled } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
 import { Delete, Edit, LocationOn, WhatsApp } from "@mui/icons-material";
 import Header from "../../components/Header/Header";
 import AuthContext from "../../Context";
+import UpdateBox from "../../components/UpdateBox";
 const Details = () => {
   const navigate=useNavigate()
-  const {Deleted}=useContext(AuthContext)
+  const {Deleted,isUpdated}=useContext(AuthContext)
   const [detail, setDetail] = useState({});
   let { id } = useParams();
   useEffect(() => {
@@ -27,7 +30,7 @@ const Details = () => {
       }
     };
     fetchdetails();
-  }, [id]);
+  }, [id,isUpdated]);
 
   const memoizedDetail = useMemo(() => detail, [detail]);
   const Item = styled(Paper)(({ theme }) => ({
@@ -42,12 +45,22 @@ const Details = () => {
     DeleteProperty(id,Deleted);
     navigate('/home')
   };
-  const handleUpdate = (memoizedDetail) => {
-    UpdateProperty(id,memoizedDetail)
-    // navigate('/home')
+  
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
   };
+
+
   return (
     <>
+       <Snackbar open={isUpdated} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+          Property Updated!
+        </Alert>
+      </Snackbar>
+
       <Header />
       <Box width="80%" m="80px auto" sx={{ overflow: "hidden" }}>
         <Box display="flex" flexWrap="wrap" columnGap="40px">
@@ -129,10 +142,7 @@ const Details = () => {
                   {memoizedDetail.property_name}
                 </Typography>
                 <div>
-
-                <IconButton onClick={handleUpdate}>
-                  <Edit/>
-                </IconButton>
+                  <UpdateBox data={memoizedDetail}/>
                 <IconButton onClick={handleDelete}>
                   <Delete />
                 </IconButton>
@@ -186,7 +196,8 @@ const Details = () => {
 
             <Box display="flex" alignItems="center" minHeight="50px">
               <Button
-                color="success"
+              color="success"
+              
                 variant="contained"
                 startIcon={<WhatsApp />}
                 sx={{
@@ -195,6 +206,7 @@ const Details = () => {
                   padding: "10px 40px",
                   // width: "100%",
                 }}
+                // onClick={handleWhatsapp}
               >
                 Contact on WhatsApp
               </Button>

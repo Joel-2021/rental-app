@@ -6,6 +6,7 @@ export const AuthContextProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isAdded,setIsAdded]=useState(null)
   const [isDeleted,setIsDeleted]=useState(null)
+  const [isUpdated,setIsUpdated]=useState(null)
   useEffect(() => {
     if (isLoggedIn) navigate("/home");
     if (!isLoggedIn) navigate("/");
@@ -30,6 +31,12 @@ export const AuthContextProvider = (props) => {
       setIsDeleted(null)
     },3000)
   }
+  function Updated(){
+    setIsUpdated(true)
+    setTimeout(()=>{
+      setIsUpdated(null)
+    },3000)
+  }
   return (
     <AuthContext.Provider
       value={{
@@ -38,8 +45,10 @@ export const AuthContextProvider = (props) => {
         Logout,
         Added,
         Deleted,
+        Updated,
         isAdded,
-        isDeleted
+        isDeleted,
+        isUpdated
       }}
     >
       {props.children}
