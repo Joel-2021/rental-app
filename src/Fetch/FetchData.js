@@ -1,4 +1,4 @@
-const URL="http://18.118.136.253:8005"
+const URL="http://localhost:8005"
 const post_URL = `${URL}/property/post_property/`;
 const list_URL = `${URL}/property/user_property/`;
 const property_URL = `${URL}/property/list/`;

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Context";
 
 const Login = () => {
-  const URL="http://18.118.136.253:8005/auth/login";
+  const URL="http://localhost:8005/auth/login";
   const { Login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   function handleClickShowPassword() {

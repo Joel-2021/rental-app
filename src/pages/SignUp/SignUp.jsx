@@ -16,7 +16,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-const URL = "http://18.118.136.253:8005/auth/owner_registration/";
+const URL = "http://localhost:8005/auth/owner_registration/";
 const SignUp = () => {
   const navigate = useNavigate();
   const {
