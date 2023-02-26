@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/rental-app/static/css/main.f4173968.css",
+    "main.js": "/rental-app/static/js/main.7f90cb67.js",
+    "index.html": "/rental-app/index.html",
+    "main.f4173968.css.map": "/rental-app/static/css/main.f4173968.css.map",
+    "main.7f90cb67.js.map": "/rental-app/static/js/main.7f90cb67.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f4173968.css",
+    "static/js/main.7f90cb67.js"
+  ]
+}
