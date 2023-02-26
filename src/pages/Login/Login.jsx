@@ -6,7 +6,6 @@ import {
   InputAdornment,
   Typography,
   IconButton,
-  Alert,
   Box,
   Grid
 } from "@mui/material";
@@ -15,11 +14,10 @@ import { useForm } from "react-hook-form";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../Context";
-import axios from "axios";
 
 const Login = () => {
-  const URL = "http://127.0.0.1:8000/auth/login/";
-  const { isLoggedIn, Login } = useContext(AuthContext);
+  const URL="http://18.118.136.253:8005/auth/login";
+  const { Login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   function handleClickShowPassword() {
     setShowPassword((prev) => !prev);

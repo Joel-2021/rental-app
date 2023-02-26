@@ -1,10 +1,10 @@
-import axios from "axios";
-const post_URL = "http://127.0.0.1:8000/property/post_property/";
-const list_URL = "http://127.0.0.1:8000/property/user_property/";
-const property_URL = "http://127.0.0.1:8000/property/list/";
-const Upload_URL = "http://127.0.0.1:8000/property/uploadexcel/";
-const delete_URL="http://127.0.0.1:8000/property/delete_property/"
-const update_URL="http://127.0.0.1:8000/property/update_property/"
+const URL="http://18.118.136.253:8005"
+const post_URL = `${URL}/property/post_property/`;
+const list_URL = `${URL}/property/user_property/`;
+const property_URL = `${URL}/property/list/`;
+const Upload_URL = `${URL}/property/uploadexcel/`;
+const delete_URL=`${URL}/property/delete_property/`
+const update_URL=`${URL}/property/update_property/`
 
 export const inputProperty = async (data, Added) => {
   const formData = new FormData();
