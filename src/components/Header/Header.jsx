@@ -4,7 +4,7 @@ import AuthContext from "../../Context";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 
-const URL = "http://localhost:8005/auth/logout/";
+const URL = "http://localhost:8000/auth/logout/";
 const theme=createTheme({
   typography: {
     "fontFamily": `"Poppins" , sans-serif`,

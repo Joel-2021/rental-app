@@ -11,12 +11,13 @@ import {
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useForm } from "react-hook-form";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../Fetch/FetchData";
 import AuthContext from "../../Context";
 
 const Login = () => {
-  const URL="http://localhost:8005/auth/login";
+  const URL="http://localhost:8000/auth/login/";
   const { Login } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   function handleClickShowPassword() {
@@ -31,10 +32,13 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
+const csrfToken = getCookie('csrftoken');
+
       const response = await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          'X-CSRFToken': csrfToken,
         },
         body: JSON.stringify(data),
       });

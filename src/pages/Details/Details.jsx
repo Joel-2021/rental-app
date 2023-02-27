@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useContext } from "react";
-import { DeleteProperty, FetchProperty, UpdateProperty } from "../../Fetch/FetchData";
+import { DeleteProperty, FetchProperty } from "../../Fetch/FetchData";
 import {
   Box,
   Paper,
@@ -9,9 +9,9 @@ import {
   Snackbar,
   Alert
 } from "@mui/material";
-import { createTheme, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { useNavigate, useParams } from "react-router-dom";
-import { Delete, Edit, LocationOn, WhatsApp } from "@mui/icons-material";
+import { Delete, WhatsApp } from "@mui/icons-material";
 import Header from "../../components/Header/Header";
 import AuthContext from "../../Context";
 import UpdateBox from "../../components/UpdateBox";

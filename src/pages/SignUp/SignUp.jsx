@@ -10,13 +10,15 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  Box,Grid
+  Box,
+  Grid,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../Fetch/FetchData";
 
-const URL = "http://localhost:8005/auth/owner_registration/";
+const URL = "http://localhost:8000/auth/owner_registration/";
 const SignUp = () => {
   const navigate = useNavigate();
   const {
@@ -26,7 +28,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit =(data) => {
+  const onSubmit = (data) => {
     const postdata = {
       email: data.email,
       password: data.password,
@@ -38,30 +40,31 @@ const SignUp = () => {
         gender: data.gender,
       },
     };
-
+    const csrfToken = getCookie("csrftoken");
     fetch(URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
       },
       body: JSON.stringify(postdata),
     })
-      .then((response) => 
-      {
-      if (response.status === 201) {
-        alert('User registered successfully!');
-        return response.json();
-      } else if (response.status === 400) {
-        alert('Bad request. Please fill in all the required fields');
-      } else if (response.status === 409) {
-        alert('Conflict. User with that email or username already exists');
-      } else {
-        alert('An error occurred while registering the user');
-      }
-    }).then(data => {
+      .then((response) => {
+        if (response.status === 201) {
+          alert("User registered successfully!");
+          return response.json();
+        } else if (response.status === 400) {
+          alert("Bad request. Please fill in all the required fields");
+        } else if (response.status === 409) {
+          alert("Conflict. User with that email or username already exists");
+        } else {
+          alert("An error occurred while registering the user");
+        }
+      })
+      .then((data) => {
         console.log(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
     reset();
@@ -97,16 +100,20 @@ const SignUp = () => {
             fontFamily: "Arial ",
           }}
         >
-          Welcome to <span style={{ color: "blue" }}>Rental Application</span>        
-        </Typography >
-        <Typography align="center"
+          Welcome to <span style={{ color: "blue" }}>Rental Application</span>
+        </Typography>
+        <Typography
+          align="center"
           gutterBottom
           marginTop="5%"
           variant="h6"
           style={{
             fontWeight: "600",
             fontFamily: "Arial ",
-          }}>Sign Up</Typography>
+          }}
+        >
+          Sign Up
+        </Typography>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
           <FormControl style={{ width: "100%" }}>
             <TextField
