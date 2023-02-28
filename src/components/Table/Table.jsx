@@ -196,7 +196,7 @@ export default function PropertyTable(props) {
                 >
                   {data.property_name}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell style={{ width: 160,textDecoration:'line-through'  }} align="right">
                   {data.tenant_name}
                 </TableCell>
                 <TableCell style={{ width: 10 }} align="right">
@@ -208,7 +208,7 @@ export default function PropertyTable(props) {
                 <TableCell style={{ width: 100 }} align="right">
                   {data.rent_date}
                 </TableCell>
-                <TableCell style={{ width: 160 }} align="right">
+                <TableCell style={{ width: 160}} align="right">
                   {data.phone_number}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">

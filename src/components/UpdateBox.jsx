@@ -1,8 +1,16 @@
-import  React,{useContext} from "react";
-import { Button, Slide, IconButton,TextField,Box } from "@mui/material";
+import React, { useContext, useState } from "react";
+import {
+  Button,
+  Slide,
+  FormControlLabel,
+  FormGroup,
+  Switch,
+  TextField,
+  Box,
+} from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import {useForm} from 'react-hook-form'
+import { useForm } from "react-hook-form";
 import AuthContext from "../Context";
 import { UpdateProperty } from "../Fetch/FetchData";
 
@@ -12,11 +20,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const style = {
   width: { sm: "200", md: "200", xs: "100" },
-  "& .MuiInputBase-root": {
-  },
+  "& .MuiInputBase-root": {},
 };
 
-export default function UpdateBox({data}) {
+export default function UpdateBox({ data }) {
   const { Updated } = useContext(AuthContext);
   const {
     register,
@@ -26,28 +33,57 @@ export default function UpdateBox({data}) {
 
   function onSubmit(res, e) {
     e.preventDefault();
-    UpdateProperty(data.id,res,Updated)
-    handleClose()
+    console.log(data)
+    UpdateProperty(data.id, res, Updated);
+    handleClose();
   }
 
-  
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = useState(false);
+  const [isActive,setIsActive]=useState(data.is_tenant_active)
   const handleOpen = () => {
     setOpen(true);
-  };
+  }
 
   const handleClose = () => {
     setOpen(false);
   };
 
+  const switchHandler = (event) => {
+    setIsActive(event.target.checked);
+    console.log(isActive)
+  };
   return (
     <div>
-      <IconButton onClick={handleOpen}>
-        <Edit />
-      </IconButton>
+      <Button
+        onClick={handleOpen}
+        startIcon={<Edit sx={{ color: "white" }} />}
+        style={{
+          fontFamily: "Poppins, san-serif",
+          color: "white",
+          fontWeight: "600",
+        }}
+      >
+        Update
+      </Button>
       <Dialog open={open} TransitionComponent={Transition}>
-        <DialogTitle>Update Details</DialogTitle>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <DialogTitle>Update Details</DialogTitle>
+        
+            <FormControlLabel
+              control={<Switch 
+                defaultChecked={data.is_tenant_active}
+              {...register('is_tenant_active')}
+              />}
+              label="Active Tenant"
+            />
+         
+        </div>
         <DialogContent style={{ textAlign: "center" }}>
           <Box
             component="form"
@@ -88,7 +124,6 @@ export default function UpdateBox({data}) {
               sx={style}
               label="Address"
               defaultValue={data.address}
-
               InputLabelProps={{ shrink: true }}
               type="text"
               size="small"
@@ -104,7 +139,6 @@ export default function UpdateBox({data}) {
               InputLabelProps={{ shrink: true }}
               size="small"
               defaultValue={data.tenant_name}
-
               required
               error={errors.tenant_name ? true : false}
               {...register("tenant_name", {
@@ -116,7 +150,6 @@ export default function UpdateBox({data}) {
               label="email"
               InputLabelProps={{ shrink: true }}
               defaultValue={data.email}
-
               size="small"
               required
               {...register("email")}
@@ -128,7 +161,6 @@ export default function UpdateBox({data}) {
               type="number"
               size="small"
               defaultValue={data.age}
-
               error={errors.age ? true : false}
               required
               {...register("age", {
@@ -143,7 +175,6 @@ export default function UpdateBox({data}) {
               InputLabelProps={{ shrink: true }}
               required
               defaultValue={data.phone_number}
-              
               error={errors.phone_number ? true : false}
               {...register("phone_number", {
                 required: true,
@@ -158,7 +189,6 @@ export default function UpdateBox({data}) {
               size="small"
               InputLabelProps={{ shrink: true }}
               defaultValue={data.rent}
-
               required
               error={errors.rent ? true : false}
               {...register("rent", {
@@ -172,7 +202,6 @@ export default function UpdateBox({data}) {
               type="date"
               size="small"
               defaultValue={data.rent_date}
-
               error={errors.rent_date ? true : false}
               required
               {...register("rent_date", {
@@ -187,7 +216,6 @@ export default function UpdateBox({data}) {
               InputLabelProps={{ shrink: true }}
               required
               defaultValue={data.adhar_num}
-              
               error={errors.adhar_num ? true : false}
               {...register("adhar_num", {
                 required: true,
