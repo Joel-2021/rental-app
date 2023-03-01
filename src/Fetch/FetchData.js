@@ -36,6 +36,7 @@ export const inputProperty = async (data, Added) => {
   formData.append("bhk", data.bhk);
   formData.append("phone_number", data.phone_number);
   formData.append("adhar_num", data.adhar_num);
+  formData.append("is_tenant_active", true);
   formData.append("adhar_pic", data.adhar_pic[0]);
   formData.append("property_pic", data.property_pic[0]);
 

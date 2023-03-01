@@ -17,11 +17,13 @@ import {
   InputAdornment,
 } from "@mui/material";
 import {
+  ErrorOutlineOutlined,
   FirstPage,
   KeyboardArrowLeft,
   KeyboardArrowRight,
   LastPage,
   Search,
+  TaskAlt,
 } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
@@ -105,7 +107,7 @@ export default function PropertyTable(props) {
   useEffect(() => {
     setFilteredData(props.data);
   }, [props.data]);
-
+console.log(filteredData)
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - filteredData.length) : 0;
@@ -161,11 +163,12 @@ export default function PropertyTable(props) {
             >
               <TableCell>ID</TableCell>
               <TableCell align="right">Property Name</TableCell>
-              <TableCell align="right">Tenant Name</TableCell>
               <TableCell align="right">BHK</TableCell>
+              <TableCell align="right">Tenant Name</TableCell>
               <TableCell align="right">Rent</TableCell>
               <TableCell align="right">Rent Date</TableCell>
               <TableCell align="right">Phone Number</TableCell>
+              <TableCell align="right">Rent Status</TableCell>
               <TableCell align="right">View Proof</TableCell>
             </TableRow>
           </TableHead>
@@ -196,25 +199,30 @@ export default function PropertyTable(props) {
                 >
                   {data.property_name}
                 </TableCell>
-                <TableCell style={{ width: 160,textDecoration:'line-through'  }} align="right">
-                  {data.tenant_name}
-                </TableCell>
                 <TableCell style={{ width: 10 }} align="right">
                   {data.bhk}
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="right">
-                  {data.rent}
+                 {data.is_tenant_active && data.tenant_name } 
+                </TableCell>
+                <TableCell style={{ width: 160 }} align="right">
+                {data.is_tenant_active && data.rent } 
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
-                  {data.rent_date}
+                  {data.is_tenant_active && data.rent_date } 
                 </TableCell>
                 <TableCell style={{ width: 160}} align="right">
-                  {data.phone_number}
+                {data.is_tenant_active && data.phone_number } 
+                </TableCell>
+                <TableCell style={{ width: 160}} align="right">
+                  {data.is_tenant_active && (data.is_paid ? <TaskAlt/> :<ErrorOutlineOutlined/>)}
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
+                  {data.is_tenant_active &&
                   <a target="_blank" rel="noreferrer" href={data.adhar_pic}>
                     click
                   </a>
+                  }
                 </TableCell>
               </TableRow>
             ))}
