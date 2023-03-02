@@ -5,6 +5,7 @@ const property_URL = `${URL}/property/list/`;
 const Upload_URL = `${URL}/property/uploadexcel/`;
 const delete_URL = `${URL}/property/delete_property/`;
 const update_URL = `${URL}/property/update_property/`;
+const export_URL = `${URL}/property/getexcel/`;
 
 
 export function getCookie(name) {
@@ -180,3 +181,28 @@ export const UpdateProperty = async (id, data, Updated) => {
     console.log(error.message);
   }
 };
+
+export const fetchExcel = async () => {
+  try {
+    const csrfToken = getCookie('csrftoken')
+    const token = localStorage.getItem('token')
+    const response = await fetch(export_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'X-CSRFToken': csrfToken,
+      },
+      responseType: 'blob',
+    })
+    if (response.ok) {
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = 'tenants.xlsx'
+      link.click()
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

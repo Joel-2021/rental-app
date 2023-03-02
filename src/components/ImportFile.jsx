@@ -1,6 +1,6 @@
 import React, { useState,useContext } from "react";
 import { Button, Slide } from "@mui/material";
-import { Add, UploadFile } from "@mui/icons-material";
+import {FileUpload, UploadFile } from "@mui/icons-material";
 import { Dialog, DialogContent, DialogTitle,Typography } from "@mui/material";
 import { UploadExcel } from "../Fetch/FetchData";
 import AuthContext from "../Context";
@@ -43,9 +43,9 @@ export default function AlertDialogSlide() {
           height: { xs: "30px", lg: "40px" },
           fontSize: { xs: "10px", lg: "13px" },
         }}
-        startIcon={<Add />}
+        startIcon={<FileUpload />}
       >
-        From Excel
+        Import
       </Button>
       <Dialog
         open={open}
