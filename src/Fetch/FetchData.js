@@ -102,8 +102,9 @@ export const FetchProperty = async (id) => {
       console.log(jsonData);
       return jsonData;
     }
+    if(response.status===400) return null
   } catch (error) {
-    console.log(error.message);
+    console.log(error)
   }
 };
 

@@ -52,12 +52,12 @@ export default function AlertDialogSlide() {
         TransitionComponent={Transition}
         onClose={handleClose}
       >
-        <DialogTitle>Export from excel file</DialogTitle>
+        <DialogTitle>Import from excel file</DialogTitle>
         <DialogContent style={{ textAlign: "center" }}>
           <Typography variant="subtitle2" gutterBottom> Select a .xls , .csv file </Typography>
           <form onSubmit={fileSubmit} style={{display:'flex',flexDirection:'column'}}>
             <Button startIcon={<UploadFile />} component="label" style={{margin:'10px'}}>
-              Export Excel{" "}
+              Import Excel{" "}
               <input
                 type="file"
                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,xls"

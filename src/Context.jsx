@@ -8,8 +8,10 @@ export const AuthContextProvider = (props) => {
   const [isDeleted,setIsDeleted]=useState(null)
   const [isUpdated,setIsUpdated]=useState(null)
   useEffect(() => {
-    if (isLoggedIn) navigate("/home");
-    if (!isLoggedIn) navigate("/");
+    const loggedIn = !!localStorage.getItem('token')
+    setIsLoggedIn(loggedIn)
+    if (isLoggedIn ) navigate("/home");
+     else navigate("/");
     console.log(isLoggedIn);
   }, [isLoggedIn]);
 

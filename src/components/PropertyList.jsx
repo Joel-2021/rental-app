@@ -10,7 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function PropertyList() {
-  const { isAdded } = useContext(AuthContext);
+  const { isAdded,isDeleted } = useContext(AuthContext);
   const [properties, setProperties] = useState([]);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -24,7 +24,7 @@ export default function PropertyList() {
       }
     };
     fetchProperties();
-  }, [isAdded]);
+  }, [isAdded,isDeleted]);
 
   function handleExport() {
     fetchExcel();
@@ -33,7 +33,7 @@ export default function PropertyList() {
   const memoizedData = useMemo(() => properties, [properties]);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <Container>
@@ -58,7 +58,7 @@ export default function PropertyList() {
               sx={{
                 display: { xs: !showMenu && "none", lg: "flex" },
                 gap: "10px",
-                flexDirection: { xs: "column", lg: "row" },
+                flexDirection: { xs: "row", lg: "column",md:'column',sm:'column' },
               }}
             >
               <Modal />

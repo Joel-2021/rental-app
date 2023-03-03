@@ -59,6 +59,7 @@ const Details = () => {
       </Snackbar>
 
       <Header />
+      {memoizedDetail? 
       <Box width="80%" m="80px auto">
         {/* <Box width="80%" m="80px auto" sx={{ overflow: "hidden" }}> */}
         <Box display="flex" flexWrap="wrap" columnGap="40px">
@@ -141,10 +142,6 @@ const Details = () => {
                   Tenant {memoizedDetail?.is_tenant_active ?"is Active" :"is not Active"}
                 </Typography>
               </div>
-
-              {/* <Typography variant="subtitle2">
-              
-              </Typography> */}
               <Typography variant="subtitle2" textTransform={"capitalize"}>
                 Name : {memoizedDetail.tenant_name}
               </Typography>
@@ -190,6 +187,9 @@ const Details = () => {
           </Box>
         </Box>
       </Box>
+      : <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',height:'80vh',width:'90vw'}}>
+        <Typography sx={{textAlign:'center'}}>This Property has already been deleted</Typography>
+        </Box>}
     </>
   );
 };

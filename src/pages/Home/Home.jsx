@@ -6,26 +6,26 @@ import AuthContext from '../../Context'
 
 const Home = () => {
   const {isAdded,isDeleted}=useContext(AuthContext)
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
   };
   return (
+  
     <>
-    <Header/>
+      <Header/>
     <PropertyList/>
     <Snackbar open={isAdded} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           New Property Added!
         </Alert>
       </Snackbar>
     <Snackbar open={isDeleted} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="error">
-           Property Deleted!
+    <Alert onClose={handleClose} severity="error">
+    Property Deleted!
         </Alert>
-      </Snackbar>
+        </Snackbar>
     </>
   )
 }
