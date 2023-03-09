@@ -16,11 +16,11 @@ import Header from "../../components/Header/Header";
 import AuthContext from "../../Context";
 import UpdateBox from "../../components/UpdateBox";
 import DeleteConfirmation from "../../components/DeleteConfirmation";
-const Details = () => {
-
+import Carousel from "../../components/carousel";
+const Details =() => {
   const { isUpdated } = useContext(AuthContext);
   const [detail, setDetail] = useState({});
-  let { id } = useParams();
+  let { id } = useParams(); 
   useEffect(() => {
     const fetchdetails = async () => {
       try {
@@ -34,22 +34,14 @@ const Details = () => {
   }, [id, isUpdated]);
 
   const memoizedDetail = useMemo(() => detail, [detail]);
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
- 
+  console.log(memoizedDetail)
+  console.log(memoizedDetail.images)
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
   };
-
   return (
     <>
       <Snackbar open={isUpdated} autoHideDuration={6000} onClose={handleClose}>
@@ -60,47 +52,19 @@ const Details = () => {
 
       <Header />
       {memoizedDetail? 
-      <Box width="80%" m="80px auto">
-        {/* <Box width="80%" m="80px auto" sx={{ overflow: "hidden" }}> */}
+      <Box width="80%" m="50px auto">
         <Box display="flex" flexWrap="wrap" columnGap="40px">
-          {/* IMAGES */}
-          <Box flex="1 1 40%" mb="40px">
-            <img
-              src={memoizedDetail?.property_pic}
-              alt={memoizedDetail.property_name}
-              width="100%"
-              height="80%"
-              style={{ objectFit: "cover" }}
-            />
+          <Box flex="1 1 60%" mb="40px">
             <Box sx={{ width: "100%" }}>
-              <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              >
-                <Grid item xs={6}>
-                  <Item sx={{ background: "#537fe7" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <UpdateBox data={memoizedDetail} />
-                    </div>
-                  </Item>
-                </Grid>
-                <Grid item xs={6}>
-                  <Item sx={{ background: "#f87575" }}>
-                    <DeleteConfirmation id={memoizedDetail.id}/>          
-                  </Item>
-                </Grid>
-              </Grid>
+            <Carousel images={memoizedDetail.images}/>
+             <Box sx={{display:'flex',justifyContent:'space-around'}}>
+              <UpdateBox data={memoizedDetail}/>
+              <DeleteConfirmation id={memoizedDetail.id}/>
+              </Box>  
             </Box>
           </Box>
           {/* PROPERTY INFO */}
-          <Box flex="1 1 50%" mb="40px">
+          <Box flex="1 1 30%" mb="40px">
             <Box>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography

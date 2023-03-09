@@ -1,17 +1,18 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Box,
+  Button,
   Container,
-  IconButton,
   FormControl,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
   TextField,
   Typography,
-  InputAdornment,
-  Button,
-  Select,
-  MenuItem,
-  InputLabel,
-  Box,
-  Grid,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../Fetch/FetchData";
 
 const URL = "http://localhost:8000/auth/owner_registration/";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const {
@@ -72,178 +74,161 @@ const SignUp = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
   return (
-    <Container
-      component="main"
-      maxWidth="500px"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
-          marginTop: 4,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+    <Container maxWidth="md">
+      <Box mt={4} mb={4}>
         <Typography
           align="center"
-          gutterBottom
-          marginTop="5%"
           variant="h5"
-          style={{
-            fontWeight: "600",
-            fontFamily: "Arial ",
-          }}
+          style={{ fontWeight: "600", fontFamily: "Arial" }}
         >
           Welcome to <span style={{ color: "blue" }}>Rental Application</span>
         </Typography>
         <Typography
           align="center"
-          gutterBottom
-          marginTop="5%"
           variant="h6"
-          style={{
-            fontWeight: "600",
-            fontFamily: "Arial ",
-          }}
+          style={{ fontWeight: "600", fontFamily: "Arial", marginTop: "2rem" }}
         >
           Sign Up
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
-          <FormControl style={{ width: "100%" }}>
-            <TextField
-              required
-              placeholder="Email"
-              {...register("email", {
-                required: true,
-                pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-              })}
-              error={errors.email ? true : false}
-              helperText={errors.email && "Enter Valid Email"}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              type={showPassword ? "text" : "password"}
-              required
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                placeholder: "Password",
-              }}
-              {...register("password", { required: true, minLength: 6 })}
-              error={errors.password ? true : false}
-              helperText={errors.password && "Set a Strong Password"}
-              margin="normal"
-              fullWidth
-            />
-
-            <TextField
-              required
-              placeholder="First Name"
-              name="first_name"
-              {...register("first_name", { required: true })}
-              error={errors.first_ame ? true : false}
-              helperText={errors.fName && "Valid Name please"}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              required
-              placeholder="Last Name"
-              {...register("last_name", { required: true })}
-              error={errors.last_name ? true : false}
-              helperText={errors.lName && "Valid Last Name please"}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              required
-              type="number"
-              placeholder="Phone Number"
-              {...register("phone_number", { required: true })}
-              error={errors.pNum ? true : false}
-              helperText={errors.lName && "Valid Last Name please"}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              required
-              type="number"
-              placeholder="Age"
-              {...register("age", { required: true })}
-              error={errors.age ? true : false}
-              helperText={errors.age && "Valid Last Name please"}
-              margin="normal"
-              fullWidth
-            />
-            <FormControl variant="standard">
-              <InputLabel>Gender</InputLabel>
-              <Select
-                placeholder="Gender"
-                name="Gender"
-                defaultValue={""}
-                {...register("gender", { required: true })}
-              >
-                <MenuItem value={"M"}>Male</MenuItem>
-                <MenuItem value={"F"}>Female</MenuItem>
-              </Select>
-            </FormControl>
-
-            <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign Up
-            </Button>
-          </FormControl>
-        </form>
-        <Grid
-          container
+        <Paper elevation={3} style={{ padding: "2rem", marginTop: "2rem" }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  variant="outlined"
+                  label="Email"
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                  })}
+                  error={errors.email ? true : false}
+                  helperText={errors.email && "Enter Valid Email"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  type={showPassword ? "text" : "password"}
+                  variant="outlined"
+                  required
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  label='Password'
+                  {...register("password", { required: true, minLength: 6 })}
+                  error={errors.password ? true : false}
+                  helperText={errors.password && "Set a Strong Password"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                
+                <TextField
+                  required
+                  variant="outlined"
+                  label="First Name"
+                  name="first_name"
+                  {...register("first_name", { required: true })}
+                  error={errors.first_ame ? true : false}
+                  helperText={errors.fName && "Valid Name please"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  variant="outlined"
+                  label="Last Name"
+                  {...register("last_name", { required: true })}
+                  error={errors.last_name ? true : false}
+                  helperText={errors.lName && "Valid Last Name please"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  variant="outlined"
+                  type="number"
+                  label="Phone Number"
+                  {...register("phone_number", { required: true })}
+                  error={errors.pNum ? true : false}
+                  helperText={errors.lName && "Valid Last Name please"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  variant="outlined"
+                  type="number"
+                  label="Age"
+                  {...register("age", { required: true })}
+                  error={errors.age ? true : false}
+                  helperText={errors.age && "Valid Last Name please"}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel>Gender</InputLabel>
+                  <Select
+                    label="Gender"
+                    name="Gender"
+                    defaultValue={""}
+                    {...register("gender", { required: true })}
+                  >
+                    <MenuItem value={"M"}>Male</MenuItem>
+                    <MenuItem value={"F"}>Female</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" fullWidth>
+                  Sign Up
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Paper>
+        <Typography
+          align="center"
+          variant="body2"
           style={{
-            display: "flex",
-            justifyContent: "center",
-            margin: "10px",
+            fontWeight: "600",
+            fontFamily: "Helvetica",
+            marginTop: "2rem",
           }}
         >
-          <Grid
-            item
-            variant="body2"
+          Already a user? Click{" "}
+          <span
+            onClick={() => {
+              navigate("/");
+            }}
             style={{
-              fontSize: "15px",
-              fontWeight: "600",
-              fontFamily: "Helvetica",
+              color: "blue",
+              cursor: "pointer",
+              textDecoration: "underline",
             }}
           >
-            Already a user? Click{" "}
-            <span
-              onClick={() => {
-                navigate("/");
-              }}
-              style={{
-                color: "blue",
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-            >
-              here
-            </span>
-          </Grid>
-        </Grid>
+            here
+          </span>
+        </Typography>
       </Box>
     </Container>
   );
 };
-
 export default SignUp;

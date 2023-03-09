@@ -174,12 +174,12 @@ console.log(filteredData)
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-              ? filteredData.slice(
+              ? filteredData?.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
               : filteredData
-            ).map((data) => (
+            )?.map((data) => (
               <TableRow
                 key={data.id}
                 onClick={() => navigate(`/home/${data.id}`)}
@@ -206,7 +206,7 @@ console.log(filteredData)
                  {data.is_tenant_active && data.tenant_name } 
                 </TableCell>
                 <TableCell style={{ width: 160 }} align="right">
-                {data.is_tenant_active && data.rent } 
+                ₹{data.is_tenant_active && data.rent } 
                 </TableCell>
                 <TableCell style={{ width: 100 }} align="right">
                   {data.is_tenant_active && data.rent_date } 
@@ -229,7 +229,7 @@ console.log(filteredData)
 
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
+                <TableCell colSpan={9} />
               </TableRow>
             )}
           </TableBody>

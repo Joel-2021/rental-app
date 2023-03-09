@@ -1,3 +1,4 @@
+
 const URL = "http://localhost:8000";
 const post_URL = `${URL}/property/post_property/`;
 const list_URL = `${URL}/property/user_property/`;
@@ -6,6 +7,9 @@ const Upload_URL = `${URL}/property/uploadexcel/`;
 const delete_URL = `${URL}/property/delete_property/`;
 const update_URL = `${URL}/property/update_property/`;
 const export_URL = `${URL}/property/getexcel/`;
+const changePassword_URL=`${URL}/auth/reset/users/set_password/`
+const Logout_URL=`${URL}/auth/logout/`
+const Login_URL=`${URL}/auth/login/`
 
 
 export function getCookie(name) {
@@ -23,6 +27,31 @@ export function getCookie(name) {
   return cookieValue;
 }
 
+export const UserLogin=async(Login,data)=>{
+  try {
+    const csrfToken = getCookie("csrftoken");
+    const response = await fetch(Login_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrfToken,
+      },
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      const jsonData = await response.json(); 
+      Login();
+      let token = jsonData.Token.access;
+      localStorage.setItem("token", token);
+      console.log("loggedIN");
+    } else {
+      alert("Wrong username or password");
+      console.log("Invalid Email or password");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 
 export const inputProperty = async (data, Added) => {
@@ -39,8 +68,12 @@ export const inputProperty = async (data, Added) => {
   formData.append("adhar_num", data.adhar_num);
   formData.append("is_tenant_active", true);
   formData.append("adhar_pic", data.adhar_pic[0]);
-  formData.append("property_pic", data.property_pic[0]);
-
+  
+  const files=[...data.uploaded_images].slice(0,4)
+  files.forEach(file=>{
+    formData.append("uploaded_images",file)
+  })
+  
   try {
     const csrfToken = getCookie('csrftoken');
     const token = localStorage.getItem("token");
@@ -160,17 +193,34 @@ export const DeleteProperty = async (id, Deleted) => {
 
 export const UpdateProperty = async (id, data, Updated) => {
   try {
+    const formData = new FormData();
+  formData.append("property_name", data.property_name);
+  formData.append("tenant_name", data.tenant_name);
+  formData.append("age", data.age);
+  formData.append("rent", data.rent);
+  formData.append("rent_date", data.rent_date);
+  formData.append("address", data.address);
+  formData.append("email", data.email);
+  formData.append("bhk", data.bhk);
+  formData.append("phone_number", data.phone_number);
+  formData.append("adhar_num", data.adhar_num);
+  formData.append("is_tenant_active", true);
+  formData.append("adhar_pic", data.adhar_pic[0]);
+
+  const files=[...data.uploaded_images].slice(0,4)
+  files.forEach(file=>{
+    formData.append("uploaded_images",file)
+  })
     const csrfToken = getCookie('csrftoken');
 
     const token = localStorage.getItem("token");
     const response = await fetch(update_URL + id, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
         "X-CSRFToken": csrfToken,
       },
-      body: JSON.stringify(data),
+      body: formData
     });
     if (response.ok) {
       Updated();
@@ -207,3 +257,51 @@ export const fetchExcel = async () => {
     console.log(error)
   }
 }
+
+export const UserLogout = async (Logout) => {
+  try {
+    const token = localStorage.getItem("token"); // get token from localStorage
+    const response = await fetch(Logout_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // include token in Authorization header
+      },
+    });
+    if (response.ok) {
+      Logout();
+      localStorage.removeItem("token"); // remove token from localStorage
+      console.log("Logged out successfully");
+    } else {
+      console.log("Logout failed");
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const changePassword=async(data,Logout)=>{
+  try {
+    const csrfToken = getCookie('csrftoken')
+    const token = localStorage.getItem('token')
+    const response=await fetch(changePassword_URL,{
+      method:'POST',
+      headers:{
+        "Content-Type": "application/json",
+        Authorization:`Bearer ${token}`,
+        'X-CSRFToken': csrfToken,
+      },
+      body: JSON.stringify(data)
+    },
+    )
+    if (response.status === 204) {
+      console.log('Password changed successfully.');
+      UserLogout(Logout)
+    } else {
+      const errorData = await response.json();
+      console.log(errorData);
+    }
+  } catch (error) {
+    console.log(error)
+  }
+} 

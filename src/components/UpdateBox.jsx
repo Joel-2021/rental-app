@@ -8,7 +8,7 @@ import {
   TextField,
   Box,
 } from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Edit,DocumentScanner } from "@mui/icons-material";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useForm } from "react-hook-form";
 import AuthContext from "../Context";
@@ -33,34 +33,33 @@ export default function UpdateBox({ data }) {
 
   function onSubmit(res, e) {
     e.preventDefault();
-    console.log(data)
+    console.log(data);
     UpdateProperty(data.id, res, Updated);
     handleClose();
   }
 
   const [open, setOpen] = useState(false);
-  const [isActive,setIsActive]=useState(data.is_tenant_active)
+  const [isActive, setIsActive] = useState(data.is_tenant_active);
   const handleOpen = () => {
     setOpen(true);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const switchHandler = (event) => {
-    setIsActive(event.target.checked);
-    console.log(isActive)
-  };
   return (
     <div>
       <Button
         onClick={handleOpen}
-        startIcon={<Edit sx={{ color: "white" }} />}
+        startIcon={<Edit sx={{ color: "white"}} />}
         style={{
           fontFamily: "Poppins, san-serif",
           color: "white",
           fontWeight: "600",
+          backgroundColor:'#537FE7',
+          width:'10rem',
+          textAlign:'center'
         }}
       >
         Update
@@ -74,15 +73,16 @@ export default function UpdateBox({ data }) {
           }}
         >
           <DialogTitle>Update Details</DialogTitle>
-        
-            <FormControlLabel
-              control={<Switch 
+
+          <FormControlLabel
+            control={
+              <Switch
                 defaultChecked={data.is_tenant_active}
-              {...register('is_tenant_active')}
-              />}
-              label="Active Tenant"
-            />
-         
+                {...register("is_tenant_active")}
+              />
+            }
+            label="Active Tenant"
+          />
         </div>
         <DialogContent style={{ textAlign: "center" }}>
           <Box
@@ -223,7 +223,7 @@ export default function UpdateBox({ data }) {
                 maxLength: 12,
               })}
             />
-            {/* <div className="upload">
+            <div className="upload">
               <Button
                 startIcon={<DocumentScanner />}
                 component="label"
@@ -247,10 +247,13 @@ export default function UpdateBox({ data }) {
                   type="file"
                   accept="image/*"
                   hidden
-                  {...register("property_pic")}
+                  multiple
+                  {...register("uploaded_images", {
+                    required: true,
+                  })}
                 />
               </Button>
-            </div> */}
+            </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button color="success" variant="contained" type="submit">
                 Update

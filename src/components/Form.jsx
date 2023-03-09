@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import { TextField, Button } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { DocumentScanner} from "@mui/icons-material";
-import { inputProperty} from "../Fetch/FetchData";
+import { DocumentScanner } from "@mui/icons-material";
+import { inputProperty } from "../Fetch/FetchData";
 import AuthContext from "../Context";
 const style = {
   width: { sm: "200", md: "200", xs: "100" },
@@ -26,18 +26,32 @@ export default function Form(props) {
     props.onClose();
   }
 
-  
   return (
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
+        "& .MuiTextField-root": {
+          m: 1,
+          width: "500px",
+          display: "flex",
+          flexDirection: "column",
+          maxHeight: "90%",
+        },
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <h3
+        style={{
+          fontFamily: "Helvetica",
+          fontWeight: "500",
+        }}
+      >
+        Property Details{" "}
+      </h3>
       <TextField
+        style={{ width: "97%" }}
         sx={style}
         label="Name of Property"
         size="small"
@@ -48,81 +62,53 @@ export default function Form(props) {
         })}
         padding="100px"
       />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <TextField
+          sx={style}
+          label="BHK"
+          type="number"
+          size="small"
+          error={errors.bhk ? true : false}
+          required
+          {...register("bhk", {
+            required: true,
+          })}
+        />
+        <TextField
+          sx={style}
+          label="Rent"
+          type="number"
+          size="small"
+          required
+          error={errors.rent ? true : false}
+          {...register("rent", {
+            required: true,
+          })}
+        />
+      </div>
       <TextField
+        style={{ width: "97%" }}
         sx={style}
-        label="BHK"
-        type="number"
         size="small"
-        error={errors.bhk ? true : false}
-        required
-        {...register("bhk", {
-          required: true,
-        })}
-      />
-      <TextField
-        sx={style}
         label="Address"
         type="text"
-        size="small"
+        // multiline
+        // rows={3}
+        placeholder="Address"
         error={errors.address ? true : false}
-        required
         {...register("address", {
           required: true,
         })}
       />
+
       <TextField
-        sx={style}
-        label="Name of Tenant"
-        size="small"
-        required
-        error={errors.tenant_name ? true : false}
-        {...register("tenant_name", {
-          required: true,
-        })}
-      />
-      <TextField
-        sx={style}
-        label="email"
-        size="small"
-        required
-        {...register("email")}
-      />
-      <TextField
-        sx={style}
-        label="Age"
-        type="number"
-        size="small"
-        error={errors.age ? true : false}
-        required
-        {...register("age", {
-          required: true,
-        })}
-      />
-      <TextField
-        sx={style}
-        label="Phone Number"
-        type="number"
-        size="small"
-        required
-        error={errors.phone_number ? true : false}
-        {...register("phone_number", {
-          required: true,
-          minLength: 10,
-          maxLength: 10,
-        })}
-      />
-      <TextField
-        sx={style}
-        label="Rent"
-        type="number"
-        size="small"
-        required
-        error={errors.rent ? true : false}
-        {...register("rent", {
-          required: true,
-        })}
-      />
-      <TextField
+        style={{ width: "97%" }}
         sx={style}
         label="Rent Date"
         InputLabelProps={{ shrink: true }}
@@ -134,19 +120,92 @@ export default function Form(props) {
           required: true,
         })}
       />
+      <Button
+        startIcon={<DocumentScanner />}
+        component="label"
+        color={errors.uploaded_images ? "error" : "primary"}
+      >
+        property image{" "}
+        <input
+          type="file"
+          accept="image/*"
+          hidden
+          multiple
+          {...register("uploaded_images", {
+            required: true,
+          })}
+        />
+      </Button>
+      <h3
+        style={{
+          fontFamily: "Helvetica",
+          fontWeight: "500",
+        }}
+      >
+       
+        Tenant's Details{" "}
+      </h3>
       <TextField
+        style={{ width: "97%" }}
         sx={style}
-        label="AADHAR Number"
-        type="Number"
+        label="Name of Tenant"
         size="small"
-        required
-        error={errors.adhar_num ? true : false}
-        {...register("adhar_num", {
-          required: true,
-          minLength: 12,
-          maxLength: 12,
-        })}
+        error={errors.tenant_name ? true : false}
+        {...register("tenant_name")}
       />
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <TextField
+          sx={style}
+          label="email"
+          size="small"
+          {...register("email", { pattern: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/ })}
+        />
+        <TextField
+          sx={style}
+          label="Age"
+          type="number"
+          size="small"
+          error={errors.age ? true : false}
+          {...register("age")}
+        />
+      </div>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <TextField
+          sx={style}
+          label="Phone Number"
+          type="number"
+          size="small"
+          required
+          error={errors.phone_number ? true : false}
+          {...register("phone_number", {
+            minLength: 10,
+            maxLength: 10,
+          })}
+        />
+        <TextField
+          sx={style}
+          label="AADHAR Number"
+          type="Number"
+          size="small"
+          error={errors.adhar_num ? true : false}
+          {...register("adhar_num", {
+            minLength: 12,
+            maxLength: 12,
+          })}
+        />
+      </div>
       <div className="upload">
         <Button
           startIcon={<DocumentScanner />}
@@ -158,33 +217,16 @@ export default function Form(props) {
             type="file"
             accept="image/*"
             hidden
-            {...register("adhar_pic", {
-              required: true,
-            })}
-          />
-        </Button>
-        <Button
-          startIcon={<DocumentScanner />}
-          component="label"
-          color={errors.property_pic ? "error" : "primary"}
-        >
-          property image{" "}
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            {...register("property_pic", {
-              required: true,
-            })}
+            {...register("adhar_pic")}
           />
         </Button>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <Button color="success" variant="contained" type="submit">
-          Add
-        </Button>
         <Button color="error" variant="contained" onClick={props.onClose}>
           Close
+        </Button>
+        <Button color="success" variant="contained" type="submit">
+          Add
         </Button>
       </div>
     </Box>

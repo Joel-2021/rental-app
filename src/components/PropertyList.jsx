@@ -56,9 +56,8 @@ export default function PropertyList() {
             </div>
             <Box
               sx={{
-                display: { xs: !showMenu && "none", lg: "flex" },
+                display: { xs: !showMenu && "none"},
                 gap: "10px",
-                flexDirection: { xs: "row", lg: "column",md:'column',sm:'column' },
               }}
             >
               <Modal />
@@ -86,7 +85,6 @@ export default function PropertyList() {
             sx={{
               display: "flex",
               gap: "10px",
-              flexDirection: { xs: "column", lg: "row" },
             }}
           >
             <Modal />

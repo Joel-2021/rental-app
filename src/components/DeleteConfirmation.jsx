@@ -35,6 +35,9 @@ export default function DeleteConfirmation({id}) {
           fontFamily: "Poppins, san-serif",
           color: "white",
           fontWeight: "600",
+          backgroundColor:'#f87575',
+          width:'10rem',
+          textAlign:'center'
         }}
       >
         Delete
@@ -45,7 +48,7 @@ export default function DeleteConfirmation({id}) {
         onClose={handleClose}
       >
         <DialogTitle>Do you want to Delete this property?</DialogTitle>
-        <DialogContent style={{ textAlign: "center" }}>
+        <DialogContent style={{ textAlign: "center",display:'flex',justifyContent:'space-around' }}>
             <Button onClick={handleDelete}>Yes</Button>
             <Button onClick={handleClose}>NO</Button>
         </DialogContent>

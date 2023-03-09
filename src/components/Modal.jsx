@@ -41,7 +41,8 @@ export default function AlertDialogSlide() {
         TransitionComponent={Transition}
         // keepMounted
       >
-        <DialogTitle>Add Details</DialogTitle>
+          
+        <DialogTitle sx={{fontFamily:'poppins',color:'#537FE7',fontWeight:'bold',letterSpacing:'1px'}}>Add Details</DialogTitle>
         <DialogContent style={{ textAlign: "center" }}>
           <Form onClose={handleClose} />
         </DialogContent>

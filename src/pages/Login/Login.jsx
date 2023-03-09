@@ -11,14 +11,14 @@ import {
 } from "@mui/material";
 import { Container } from "@mui/system";
 import { useForm } from "react-hook-form";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../Fetch/FetchData";
+import { UserLogin } from "../../Fetch/FetchData";
 import AuthContext from "../../Context";
 
 const Login = () => {
-  const URL = "http://localhost:8000/auth/login/";
-  const { Login } = useContext(AuthContext);
+
+  const {Login} = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   function handleClickShowPassword() {
     setShowPassword((prev) => !prev);
@@ -29,32 +29,10 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
+
   const onSubmit = async (data) => {
-    try {
-      const csrfToken = getCookie("csrftoken");
-      const response = await fetch(URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        const jsonData = await response.json(); 
-        Login();
-        let token = jsonData.Token.access;
-        localStorage.setItem("token", token);
-        console.log("loggedIN");
-      } else {
-        alert("Wrong username or password");
-        console.log("Invalid Email or password");
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+    UserLogin(Login,data)
+  }
   return <Container
       maxWidth="500px"
       style={{
@@ -137,10 +115,28 @@ const Login = () => {
           container
           style={{
             display: "flex",
+            flexDirection:'column',
             justifyContent: "center",
+            alignItems:'center',
+            gap:'10px',
             margin: "10px",
           }}
         >
+          <Grid
+            item
+            variant="body2"
+            style={{
+              fontSize: "13px",
+              fontWeight: "300",
+              fontFamily: "Roboto",
+            }}
+          >
+            <p style={{
+              cursor:'pointer',
+            }}>
+            Forgot Password?
+            </p>
+          </Grid>
           <Grid
             item
             variant="body2"
