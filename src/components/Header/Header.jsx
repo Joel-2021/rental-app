@@ -21,7 +21,7 @@ import {UserLogout} from '../../Fetch/FetchData'
 
 const theme = createTheme({
   typography: {
-    fontFamily: `"Poppins" , sans-serif`,
+    fontFamily: `"Poppins" , sans-serif, "Open Sans", sans-serif`,
     fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,

@@ -39,7 +39,7 @@ export default function AlertDialogSlide() {
       <Dialog
         open={open}
         TransitionComponent={Transition}
-        // keepMounted
+        sx={{height:'100%'}}
       >
           
         <DialogTitle sx={{fontFamily:'poppins',color:'#537FE7',fontWeight:'bold',letterSpacing:'1px'}}>Add Details</DialogTitle>
